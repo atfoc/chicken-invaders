@@ -1,7 +1,6 @@
 # Class list
 
 ## Class list for rg::engine
-
 + window
 + event
  + built_in
@@ -11,126 +10,174 @@
 + timer
 + application
 + log
-+ scene
-+ game_object
-+ light
++ scene game_object light
 + camera
 
 ## Class method list
 
 ### rg::engine::window
-+ constructor(name, posx, posy, width, height, hidden = false)
-+ move constructor
-+ move assignment
-+ attach_scene(scene)
-+ attahc_camera(camera_id, view_port)
-+ detach_scene
-+ handle_event(event)
-+ id
-+ has_scene
++ [ ] constructor(name, posx, posy, width, height, hidden = true)
++ [ ] copy_constructor = delete
++ [ ] move constructor
++ [ ] move assignment
++ [ ] attach_scene(scene_id)
++ [ ] attahc_camera(camera_id, view_port_function)
++ [ ] detach_camera(camera_id)
++ [ ] detach_scene
++ [ ] handle_event(event)
++ [ ] change_title
++ [ ] is_hidden
++ [ ] show(bool)
++ [ ] id
++ [ ] has_scene
 
 ### rg::engine::event
-+ constructor
-+ move constructor
-+ copy constructor
-+ virtual type
-+ virtual get_sdl_event
-+ virtual assign
-+ operator = &
-+ virtual move
-+ operator =&&
-+ virtual deconstructor
++ [x] constructor
++ [x] move constructor
++ [x] copy constructor
++ [x] virtual type
++ [x] virtual get_sdl_event
++ [x] virtual deconstructor
 
 ### rg::engine::built_in_event
 **extends rg::engine::event**
-+ constructor(SDL_Event)
-+ copy constructor
-+ move constructor
-+ operator =&
-+ operator =&&
++ [x] constructor(SDL_Event)
++ [x] copy constructor
++ [x] move constructor
++ [x] operator =&
++ [x] operator =&&
 
 ### rg::engine::user_event
 **extends rg::engine::event**
-+ constructor(scene_id)
-+ copy constructor
-+ move constructor
-+ operator =&
-+ operator =&&
-+ virtual code
-+ scene_id
-+ static register_event
++ [x] constructor(scene_id)
++ [x] copy constructor
++ [x] move constructor
++ [x] operator =&
++ [x] operator =&&
++ [x] virtual code
++ [x] scene_id
++ [x] static register_event
 Advice is provide static function for returning event
 code received from register_event
 
 ### rg::engine::target_event
 **extends rg::engine::user_event**
-+ constructor(scene_id, obj_id)
-+ copy constructor
-+ move constructor
-+ operator =&
-+ operator =&&
-+ obj_id
++ [x] constructor(scene_id, obj_id)
++ [x] copy constructor
++ [x] move constructor
++ [x] operator =&
++ [x] operator =&&
++ [x] obj_id
 
 ### rg::engine::thread
-+ constructor(function ,args)
-+ move = delete
-+ copy = delete
-+ operator =& =delete
-+ operator =&& = delete
-+ join
++ [ ] constructor(function ,args)
++ [ ] move = delete
++ [ ] copy = delete
++ [ ] operator =& =delete
++ [ ] operator =&& = delete
++ [ ] join
 
 ### rg::engine::timer
-+ constructor(timems, scene_id, obj_id, timer_id)
-+ copy = delete
-+ move constructor
-+ move assignment
-+ start
-+ stop
-+ pause
++ [ ] constructor(timems, scene_id, obj_id, timer_id, repeat)
++ [ ] copy = delete
++ [ ] move constructor
++ [ ] move assignment
++ [ ] start
++ [ ] stop
++ [ ] pause
 
 ### rg::engine::log
-+ static init(to_file : boolean, base_name)
-+ static danger//red
-+ static info//green
-+ static debug//blue
-+ static warning//yellow
++ [ ] static init(to_file : boolean, base_name)
++ [ ] static danger//red
++ [ ] static info//green
++ [ ] static debug//blue
++ [ ] static warning//yellow
 
 ### rg::engine::application
-+ static create_window(name, px, py, w, h, hidden)
-+ static create_thread(function, args)
-+ static post_event(event)
-+ static init(argc, argv)
-+ static add_scene(scene)
-+ static attach_scene_to_window(widnow_id, scene_id)
-+ static attach_camera_to_window(window_id, camera_id, view_port)
-+ static detach_camera_from_window(window_id, camera_id)
-+ static detach_scene_from_window(window_id)
-+ static main_loop
++ [ ] static init(argc, argv)
++ [ ] static add_scene(scene)
++ [ ] static add_window(window)
++ [ ] static create_thread(function, args)
++ [ ] static post_event(event)
++ [ ] static main_loop
 
 ### rg::engine::scene
-+ add_object(game_object, pos)
-+ get_object(id)
-+ collision(object)
-+ pause
-+ resume
-+ broadcast(event)
-+ notify(object, event)
-+ remove_object(id)
-+ get_objects
-+ render
-+ handle_event
++ [ ] add_object(game_object, position)
++ [ ] get_object(id)
++ [ ] collision(object)
++ [ ] pause
++ [ ] resume
++ [ ] broadcast(event)
++ [ ] notify(object, event)
++ [ ] remove_object(id)
++ [ ] get_objects
++ [ ] render
++ [ ] handle_event
 
 ### rg::engine::game_object
-+ virtual on_frame
-+ virtual handle_event
-+ virtual on_collision
-+ pos
-+ set_pos(pos)
++ [ ] virtual on_frame
++ [ ] virtual handle_event(event)
++ [ ] virtual on_collision
++ [ ] virtual render
++ [ ] virtual draw
++ [ ] apply_transformations
++ [ ] position
++ [ ] set_position(position)
++ [ ] rotation
++ [ ] set_rotation
++ [ ] scale
++ [ ] set_scale
++ [ ] move
++ [ ] rotate
++ [ ] stretch
 
 ### rg::engine::id
-+ static random_id
-+ static name_id
-+ static null_id
-+ static is_null_id
++ [x] static random_id
++ [x] static name_id
++ [x] static null_id
++ [x] static is_null_id
+### rg::engine::light
++ [ ] constructor(position, color)
++ [ ] position
++ [ ] set_position
++ [ ] color
++ [ ] turn_on(light_id)
++ [ ] turn_off(light_id)
 
-**TODO cameras and lights**
+### rg::engine::color
++ [ ] constructor(string hex html color)
++ [ ] constructor(r, g, b)
++ [ ] html_color
++ [ ] red
++ [ ] green
++ [ ] blue
+
+### rg::engine::camera
++ [ ] constructor()
++ [ ] virtual apply_transformation
+
+### rg::engine::orthogonal_camera
+**extends rg::engine::camera**
++ [ ] constructor(left, right, up, down, near, far)
++ [ ] move(vec2)
++ [ ] set_near_clip(near)
++ [ ] set_far_clip(far)
++ [ ] get_near_clip
++ [ ] near_clip
++ [ ] far_clip
+
+### rg::engine::perspective_camera
+**extends rg::engine::camera**
++ [ ] constructor(eye, point,fovy, aspect, znear, zfar)
++ [ ] eye
++ [ ] point
++ [ ] set_eye
++ [ ] set_point
++ [ ] fovy
++ [ ] set_fovy
++ [ ] aspect
++ [ ] set_aspect
++ [ ] near
++ [ ] far
++ [ ] set_near
++ [ ] set_far

@@ -1,0 +1,25 @@
+#ifndef ID_HPP_UGSNADMC
+#define ID_HPP_UGSNADMC
+
+#include <boost/uuid/uuid_generators.hpp>
+
+namespace rg
+{
+namespace engine
+{
+
+using uuid = boost::uuids::uuid;
+
+namespace uuids
+{
+
+	extern const uuid null_id;
+
+	inline uuid random_id(void);
+	inline uuid name_id(const std::string& name); 
+	inline bool is_null(const uuid& id);
+}
+}
+}
+
+#endif /* end of include guard: ID_HPP_UGSNADMC */
