@@ -14,17 +14,17 @@ namespace uuids
 
 	const uuid null_id(boost::uuids::nil_uuid());
 
-	inline uuid random_id(void)
+	uuid random_id(void)
 	{
 		return ran_gen();
 	}
 
-	inline uuid name_id(const std::string& name)
+	uuid name_id(const std::string& name)
 	{
 		return name_gen(name);
 	}
 
-	inline bool is_null(const uuid& id)
+	bool is_null(const uuid& id)
 	{
 		return id.is_nil() == true;
 	}

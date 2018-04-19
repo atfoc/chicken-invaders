@@ -87,11 +87,11 @@ code received from register_event
 + [ ] pause
 
 ### rg::engine::log
-+ [ ] static init(to_file : boolean, base_name)
-+ [ ] static danger//red
-+ [ ] static info//green
-+ [ ] static debug//blue
-+ [ ] static warning//yellow
++ [x] static init(to_file : boolean, base_name)
++ [x] static danger//red
++ [x] static info//green
++ [x] static debug//blue
++ [x] static warning//yellow
 
 ### rg::engine::application
 + [ ] static init(argc, argv)

@@ -15,9 +15,9 @@ namespace uuids
 
 	extern const uuid null_id;
 
-	inline uuid random_id(void);
-	inline uuid name_id(const std::string& name); 
-	inline bool is_null(const uuid& id);
+	uuid random_id(void);
+	uuid name_id(const std::string& name); 
+	bool is_null(const uuid& id);
 }
 }
 }
