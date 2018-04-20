@@ -121,6 +121,7 @@ code received from register_event
 + [ ] virtual on_collision
 + [ ] virtual render
 + [ ] virtual draw
++ [ ] virtual copy
 + [ ] apply_transformations
 + [ ] position
 + [ ] set_position(position)
@@ -139,23 +140,23 @@ code received from register_event
 + [x] static is_null_id
 ### rg::engine::light
 + [ ] constructor(position, color)
-+ [ ] position
-+ [ ] set_position
++ [ ] position 
 + [ ] color
-+ [ ] turn_on(light_id)
-+ [ ] turn_off(light_id)
++ [ ] turn_on(id)
++ [ ] apply(id)
++ [ ] turn_off(id)
 
 ### rg::engine::color
-+ [ ] constructor(string hex html color)
-+ [ ] constructor(r, g, b)
-+ [ ] html_color
-+ [ ] red
-+ [ ] green
-+ [ ] blue
++ [x] constructor(string hex html color)
++ [x] constructor(r, g, b)
++ [x] html_color
++ [x] red
++ [x] green
++ [x] blue
 
 ### rg::engine::camera
 + [ ] constructor()
-+ [ ] virtual apply_transformation
++ [ ] virtual apply
 
 ### rg::engine::orthogonal_camera
 **extends rg::engine::camera**
