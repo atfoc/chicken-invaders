@@ -9,21 +9,7 @@ namespace engine
 	{}
 
 
-	inline user_event& user_event::operator=(const user_event& e)
-	{
-		scene_id_ = e.scene_id_;
-
-		return *this;
-	}
-
-	inline user_event& user_event::operator=(user_event&& e)
-	{
-		scene_id_ = std::move(e.scene_id_);
-
-		/*test if e.scene_id_ is set to null*/
-		return *this;
-	}
-
+	
 
 	Uint32 type(void)
 	{
@@ -33,14 +19,6 @@ namespace engine
 
 
 
-	inline Uint32 user_event::regiser_event(void)
-	{
-		return SDL_RegisterEvents(1);
-	}
-
-	inline const uuid& user_event::scene_id(void)
-	{
-		return scene_id_;
-	}
+	
 }
 }

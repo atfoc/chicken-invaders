@@ -1,4 +1,3 @@
-#include <utility>
 #include "engine/built_in_event.hpp"
 
 
@@ -10,18 +9,6 @@ namespace engine
 		:	e_(e)
 	{}
 
-	inline built_in_event& built_in_event::operator=(const built_in_event& e)
-	{
-		e_ = e.e_;
-		return *this;
-	}
-
-	inline built_in_event& built_in_event::operator=(built_in_event&& e)
-	{
-		e_ = std::move(e.e_);
-
-		return *this;
-	}
 
 
 	Uint32 built_in_event::type(void)

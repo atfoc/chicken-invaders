@@ -100,6 +100,7 @@ code received from register_event
 + [ ] static create_thread(function, args)
 + [ ] static post_event(event)
 + [ ] static main_loop
++ [ ] static logger()
 
 ### rg::engine::scene
 + [ ] add_object(game_object, position)

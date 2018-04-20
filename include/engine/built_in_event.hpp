@@ -1,6 +1,7 @@
 #ifndef BUILT_IN_EVENT_HPP_J7RKDI5Q
 #define BUILT_IN_EVENT_HPP_J7RKDI5Q
 
+#include <utility>
 #include "event.hpp"
 
 
@@ -30,6 +31,20 @@ namespace engine
 		private:
 			SDL_Event e_;
 	};
+
+	inline built_in_event& built_in_event::operator=(const built_in_event& e)
+	{
+		e_ = e.e_;
+		return *this;
+	}
+
+	inline built_in_event& built_in_event::operator=(built_in_event&& e)
+	{
+		e_ = std::move(e.e_);
+
+		return *this;
+	}
+
 }
 }
 

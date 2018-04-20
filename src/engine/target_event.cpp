@@ -11,24 +11,7 @@ namespace engine
 	{}
 
 
-	inline target_event& target_event::operator=(const target_event& e)
-	{
-		scene_id_ = e.scene_id_;
-		object_id_ = e.object_id_;
-	}
-
-	inline target_event& target_event::operator=(target_event&& e)
-	{
-		scene_id_ = std::move(e.scene_id_);
-		object_id_ = std::move( e.object_id_);
-		
-	}
-
-
-	inline const uuid& target_event::object_id(void)
-	{
-		return object_id_;
-	}
+	
 
 
 }
