@@ -11,7 +11,7 @@ namespace engine
 	{
 		public:
 			color(const std::string& hex_color);
-			color(float r, float g, float b);
+			color(float r = 0.0f, float g = 0.0f, float b = 0.0f);
 			color(const color& c);
 
 			void html_color(const std::string& hex_color);

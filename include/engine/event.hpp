@@ -12,7 +12,6 @@ namespace engine
 		public:
 			event(void) = default;
 			event(const event& e) = default;
-			event(event&& e) = default;
 			
 			virtual Uint32 type(void) = 0;
 			virtual SDL_Event sdl_event(void) = 0;

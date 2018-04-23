@@ -4,8 +4,7 @@
 + window
 + event
  + built_in
- + user_event
- + target_event
+ + user_event target_event
 + thread
 + timer
 + application
@@ -19,8 +18,7 @@
 + [ ] constructor(name, posx, posy, width, height, hidden = true)
 + [ ] copy_constructor = delete
 + [ ] move constructor
-+ [ ] move assignment
-+ [ ] attach_scene(scene_id)
++ [ ] move assignment [ ] attach_scene(scene_id)
 + [ ] attahc_camera(camera_id, view_port_function)
 + [ ] detach_camera(camera_id)
 + [ ] detach_scene
@@ -139,12 +137,12 @@ code received from register_event
 + [x] static null_id
 + [x] static is_null_id
 ### rg::engine::light
-+ [ ] constructor(position, color)
-+ [ ] position 
-+ [ ] color
-+ [ ] turn_on(id)
-+ [ ] apply(id)
-+ [ ] turn_off(id)
++ [x] constructor(position, color)
++ [x] position
++ [x] color
++ [x] turn_on(id)
++ [x] apply(id)
++ [x] turn_off(id)
 
 ### rg::engine::color
 + [x] constructor(string hex html color)
@@ -155,31 +153,34 @@ code received from register_event
 + [x] blue
 
 ### rg::engine::camera
-+ [ ] constructor()
-+ [ ] virtual apply
++ [x] constructor()
++ [x] copy constructor
++ [x] virtual apply
++ [x] virtual deconstructor
+
 
 ### rg::engine::orthogonal_camera
 **extends rg::engine::camera**
-+ [ ] constructor(left, right, up, down, near, far)
-+ [ ] move(vec2)
-+ [ ] set_near_clip(near)
-+ [ ] set_far_clip(far)
-+ [ ] get_near_clip
-+ [ ] near_clip
-+ [ ] far_clip
++ [x] constructor(left, right, up, down, near, far)
++ [x] move(x, y)
++ [x] set_near_clip(near)
++ [x] set_far_clip(far)
++ [x] get_near_clip
++ [x] get_far_clip
 
 ### rg::engine::perspective_camera
 **extends rg::engine::camera**
-+ [ ] constructor(eye, point,fovy, aspect, znear, zfar)
-+ [ ] eye
-+ [ ] point
-+ [ ] set_eye
-+ [ ] set_point
-+ [ ] fovy
-+ [ ] set_fovy
-+ [ ] aspect
-+ [ ] set_aspect
-+ [ ] near
-+ [ ] far
-+ [ ] set_near
-+ [ ] set_far
++ [x] constructor(eye, point,fovy, aspect, znear, zfar)
++ [x] copy_constructor
++ [x] eye
++ [x] point
++ [x] set_eye
++ [x] set_point
++ [x] fovy
++ [x] set_fovy
++ [x] aspect
++ [x] set_aspect
++ [x] near
++ [x] far
++ [x] set_near
++ [x] set_far
