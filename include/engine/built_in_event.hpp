@@ -21,9 +21,9 @@ namespace engine
 			inline built_in_event& operator=(const built_in_event& e);
 			inline built_in_event& operator=(built_in_event&& e);
 
-
-			Uint32 type(void);
-			SDL_Event sdl_event(void);
+		
+			virtual Uint32 type(void) const;
+			virtual SDL_Event sdl_event(void) const;
 
 			virtual ~built_in_event(void) = default;
 

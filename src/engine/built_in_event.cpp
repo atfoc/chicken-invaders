@@ -11,13 +11,13 @@ namespace engine
 
 
 
-	Uint32 built_in_event::type(void)
+	Uint32 built_in_event::type(void) const
 	{
 
 		return e_.type;
 	}
 
-	SDL_Event built_in_event::sdl_event(void)
+	SDL_Event built_in_event::sdl_event(void) const
 	{
 		return e_;
 	}

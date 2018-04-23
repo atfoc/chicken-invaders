@@ -15,19 +15,20 @@
 ## Class method list
 
 ### rg::engine::window
-+ [ ] constructor(name, posx, posy, width, height, hidden = true)
-+ [ ] copy_constructor = delete
-+ [ ] move constructor
-+ [ ] move assignment [ ] attach_scene(scene_id)
-+ [ ] attahc_camera(camera_id, view_port_function)
-+ [ ] detach_camera(camera_id)
-+ [ ] detach_scene
-+ [ ] handle_event(event)
-+ [ ] change_title
-+ [ ] is_hidden
-+ [ ] show(bool)
-+ [ ] id
-+ [ ] has_scene
++ [x] constructor(name, posx, posy, width, height)
++ [x] copy_constructor = delete
++ [x] move constructor
++ [x] move assignment 
++ [x] attach_scene(scene_id)
++ [x] attahc_camera(camera_id, view_port_function)
++ [x] detach_camera(camera_id)
++ [x] detach_scene
++ [x] handle_event(event)
++ [x] change_title
++ [x] is_hidden
++ [x] show(bool)
++ [x] id
++ [x] has_scene
 
 ### rg::engine::event
 + [x] constructor
@@ -92,13 +93,13 @@ code received from register_event
 + [x] static warning//yellow
 
 ### rg::engine::application
-+ [ ] static init(argc, argv)
++ [x] static init(argc, argv)
 + [ ] static add_scene(scene)
-+ [ ] static add_window(window)
++ [x] static add_window(window)
 + [ ] static create_thread(function, args)
-+ [ ] static post_event(event)
-+ [ ] static main_loop
-+ [ ] static logger()
++ [x] static post_event(event)
++ [x] static main_loop
++ [x] static logger()
 
 ### rg::engine::scene
 + [ ] add_object(game_object, position)

@@ -1,0 +1,7 @@
+g++: error: main.cpp: No such file or directory
+g++: error: ../../src/engine/window.cpp: No such file or directory
+g++: error: ../../src/engine/application.cpp: No such file or directory
+g++: error: ../../src/engine/log.cpp: No such file or directory
+g++: error: ../../src/engine/built_in_event.cpp: No such file or directory
+g++: fatal error: no input files
+compilation terminated.
