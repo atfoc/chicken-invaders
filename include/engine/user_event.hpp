@@ -21,11 +21,11 @@ namespace engine
 			inline user_event& operator=(user_event&& e);
 
 
-			Uint32 type(void);	
+			Uint32 type(void) const;	
 			inline const uuid& scene_id(void);	
 
-			virtual SDL_Event sdl_event(void) = 0;
-			virtual Uint32 code(void) = 0;
+			virtual SDL_Event sdl_event(void) const = 0;
+			virtual Uint32 code(void) const = 0;
 
 			virtual ~user_event(void) = default;
 

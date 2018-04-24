@@ -38,10 +38,15 @@ namespace engine
 		if(id < 0 || id > 7)
 			return ;
 
-		glLightfv(lights_id_[id], GL_POSITION, (float[]){pos_[0], pos_[1], pos_[2], pos_[3]});
-		glLightfv(lights_id_[id], GL_AMBIENT, (float[]){colors_[0].red(), colors_[0].green(), colors_[0].blue()});
-		glLightfv(lights_id_[id], GL_DIFFUSE, (float[]){colors_[1].red(), colors_[1].green(), colors_[1].blue()});
-		glLightfv(lights_id_[id], GL_SPECULAR, (float[]){colors_[2].red(), colors_[2].green(), colors_[2].blue()});
+		float pos[]{pos_[0], pos_[1], pos_[2], pos_[3]};
+		float color0[]{colors_[0].red(), colors_[0].green(), colors_[0].blue()};
+		float color1[]{colors_[1].red(), colors_[1].green(), colors_[1].blue()};
+		float color2[]{colors_[2].red(), colors_[2].green(), colors_[2].blue()};
+
+		glLightfv(lights_id_[id], GL_POSITION, pos);
+		glLightfv(lights_id_[id], GL_AMBIENT, color0);
+		glLightfv(lights_id_[id], GL_DIFFUSE, color1);
+		glLightfv(lights_id_[id], GL_SPECULAR,color2);
 	}
 }
 }

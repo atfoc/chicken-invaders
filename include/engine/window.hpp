@@ -30,7 +30,7 @@ namespace engine
 			window& operator=(const window& w) = delete;
 			window& operator=(window&& w) = delete;
 
-			void attach_scene(uuid id);	
+			void attach_scene(scene* id);	
 			void detach_scene(void);
 
 			template<typename Callable>
@@ -51,6 +51,9 @@ namespace engine
 			bool has_scene(void);
 
 			void render(void);
+
+			int width(void);
+			int height(void);
 
 
 			~window(void);

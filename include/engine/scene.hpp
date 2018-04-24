@@ -1,0 +1,69 @@
+#ifndef SCENE_HPP_M5CHOAAW
+#define SCENE_HPP_M5CHOAAW
+
+#include <map>
+#include <glm/vec3.hpp>
+#include "engine/id.hpp"
+
+namespace rg
+{
+namespace engine
+{
+	class game_object;
+	class event;
+	class camera;
+	class window;
+
+	class scene
+	{
+		public:
+			scene(void);
+			scene(const scene& s);
+			scene(scene&& s);
+
+
+			/*TODO: implement this later*/
+			scene& operator=(const scene& s) = delete;
+			scene& operator=(scene&& s) = delete;
+
+			void add_object(game_object* obj, const glm::vec3& pos);
+			game_object* get_object(const uuid& id);
+
+			std::vector<game_object*> collision(game_object* obj);		
+
+			void broadcast(const event& e); 
+			void notify(const uuid& id, const event& e);
+			
+			void remove_object(const uuid& id);
+			
+
+			void render(void);
+
+			void handle_events(const event& e);
+
+			void add_camera(camera* c);
+			camera* get_camera(int id);
+			void remove_camera(int id);
+
+			void attach(window* w); 
+			void detach(window* w);
+
+			std::vector<window*> windows(void);
+
+			const uuid& id(void);
+
+			~scene(void);
+		private:
+			std::map<uuid, std::unique_ptr<game_object>> game_objects_;
+			std::vector<window*> attached_windows_;
+			std::vector<std::unique_ptr<camera>> cameras_;
+			uuid id_;
+	};
+	class game_object
+	{
+
+	};
+}
+}
+
+#endif /* end of include guard: SCENE_HPP_M5CHOAAW */

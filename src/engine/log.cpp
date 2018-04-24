@@ -13,7 +13,7 @@ namespace engine
 			log_to_file_{log_to_file},
 			p_{priority::info},
 			frmt_console_("[%s] (\x1b[%dm%s\x1b[0m) %s\n"),
-			time_format_("%d.%d.%d. %d:%d"),
+			time_format_("%d.%d.%d. %d:%d:%d"),
 			frmt_file_("[%s] (%s) %s\n"),
 			in_progress_{false}
 	{
@@ -78,7 +78,8 @@ namespace engine
 						% (local_time->tm_mon)
 						% ((local_time->tm_year + 1900) % 100)
 						% (local_time->tm_hour)
-						% (local_time->tm_min))
+						% (local_time->tm_min)
+						% (local_time->tm_sec))
 						.str();
 
 		std::string priority;

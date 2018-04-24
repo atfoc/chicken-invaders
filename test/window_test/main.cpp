@@ -6,11 +6,11 @@
 int main(int argc, char *argv[])
 {
 	rg::engine::application::init(argc, argv);	
-	rg::engine::window w("hi there");
+	rg::engine::window* w = new rg::engine::window("hi there");
 
-	rg::engine::window* w_handle = rg::engine::application::add_window(std::move(w));
+	rg::engine::application::add_window(w);
 
-	w_handle->show(true);
+	w->show(true);
 
 	rg::engine::application::exec();
 	return 0;

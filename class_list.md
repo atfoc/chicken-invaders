@@ -102,17 +102,21 @@ code received from register_event
 + [x] static logger()
 
 ### rg::engine::scene
-+ [ ] add_object(game_object, position)
-+ [ ] get_object(id)
-+ [ ] collision(object)
-+ [ ] pause
-+ [ ] resume
-+ [ ] broadcast(event)
-+ [ ] notify(object, event)
-+ [ ] remove_object(id)
-+ [ ] get_objects
-+ [ ] render
-+ [ ] handle_event
++ [x] add_object(game_object, position)
++ [x] get_object(id)
++ [x] collision(object)
++ [ ] pause events
++ [ ] resume events
++ [x] broadcast(event)
++ [x] notify(object_id, event)
++ [x] remove_object(id)
++ [ ] get_objects maybe implement this
++ [x] render
++ [x] handle_event
++ [x] add_camera(camera)
++ [x] remove_camera(camera_id)
++ [x] attach(window)
++ [x] detach(window)
 
 ### rg::engine::game_object
 + [ ] virtual on_frame
@@ -131,6 +135,9 @@ code received from register_event
 + [ ] move
 + [ ] rotate
 + [ ] stretch
++ [ ] show()
++ [ ] visable
++ [ ] copy
 
 ### rg::engine::id
 + [x] static random_id
@@ -158,6 +165,7 @@ code received from register_event
 + [x] copy constructor
 + [x] virtual apply
 + [x] virtual deconstructor
++ [ ] virtual copy
 
 
 ### rg::engine::orthogonal_camera

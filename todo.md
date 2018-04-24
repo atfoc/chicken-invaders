@@ -5,3 +5,4 @@
 + [ ] spell check
 + [ ] work on error reporting
 + [ ] add const to functions 
++ [ ] const correctnes to function arguments
