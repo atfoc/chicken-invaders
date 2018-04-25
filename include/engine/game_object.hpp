@@ -2,8 +2,10 @@
 #define GAME_OBJECT_HPP_2PCDHOIU
 
 #include <array>
-#include <glm/vec3.hpp>
 #include "engine/id.hpp"
+#include <glm/matrix.hpp>
+
+
 
 namespace rg
 {
@@ -23,32 +25,23 @@ namespace engine
 			virtual bool handle_events(const event& e);
 			virtual void on_collision(game_object& obj);
 			virtual void render(void);
-			virtual game_object* copy(void);
+			virtual game_object* copy(void) = 0;
 
 			void apply_transformations(void);
 
-			const glm::vec3& position(void);
-			void position(const glm::vec3& pos);
+			const glm::mat4& transformation(void);
+			void transformation(const glm::mat4& pos);
 
-			float rotation(void);
-			void rotation(float f);
-
-			void scale(float x, float y, float z);
-			std::tuple<float, float, float> scale(void);
-
-			void move(const glm::vec4& v);
-			void rotate(float f);
-			void streach(float x, float y, float z);
+			void transform(const glm::mat4& pos);
 
 			void show(bool v);
 			bool visable(void);
 
 			const uuid& id(void);
 		private:
-			glm::vec3 position_;
-			float rot_angle_;
-			std::array<float,3> scale_factor_;
+			glm::mat4 transformation_;
 			uuid id_;
+			bool visable_;
 	};
 }
 }

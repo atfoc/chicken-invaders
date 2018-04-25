@@ -62,6 +62,7 @@ namespace engine
 	
 	std::vector<game_object*> scene::collision(game_object* obj)		
 	{
+		static_cast<void>(obj);
 		/*TODO: implement after implementing collision*/	
 		return std::vector<game_object*>();
 	}
@@ -104,10 +105,13 @@ namespace engine
 		/*TODO:Setup lights*/
 		for(auto&& it : game_objects_)
 		{
-			glPushMatrix();
-			it.second->apply_transformations();
-			it.second->render();
-			glPopMatrix();
+			if(it.second->visable())
+			{
+				glPushMatrix();
+				it.second->apply_transformations();
+				it.second->render();
+				glPopMatrix();
+			}
 		}
 
 	}
