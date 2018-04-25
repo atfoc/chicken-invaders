@@ -119,25 +119,23 @@ code received from register_event
 + [x] detach(window)
 
 ### rg::engine::game_object
-+ [ ] virtual on_frame
-+ [ ] virtual handle_event(event)
-+ [ ] virtual on_collision
-+ [ ] virtual render
-+ [ ] virtual draw
-+ [ ] virtual copy
-+ [ ] apply_transformations
-+ [ ] position
-+ [ ] set_position(position)
-+ [ ] rotation
-+ [ ] set_rotation
-+ [ ] scale
-+ [ ] set_scale
-+ [ ] move
-+ [ ] rotate
-+ [ ] stretch
-+ [ ] show()
-+ [ ] visable
-+ [ ] copy
++ [x] virtual on_frame
++ [x] virtual handle_event(event)
++ [x] virtual on_collision
++ [x] virtual render
++ [x] virtual copy
++ [x] apply_transformations
++ [x] position
++ [x] set_position(position)
++ [x] rotation
++ [x] set_rotation
++ [x] scale
++ [x] set_scale
++ [x] move
++ [x] rotate
++ [x] stretch
++ [x] show()
++ [x] visable
 
 ### rg::engine::id
 + [x] static random_id

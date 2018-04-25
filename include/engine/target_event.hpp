@@ -20,15 +20,12 @@ namespace engine
 			inline target_event& operator=(target_event&& e);
 
 
-			inline const uuid& object_id(void);	
+			inline const uuid& object_id(void) const;	
 
-			virtual SDL_Event sdl_event(void) = 0;
-			virtual Uint32 code(void) = 0;
+			virtual SDL_Event sdl_event(void) const = 0;
+			virtual Uint32 code(void) const  = 0;
 
 			virtual ~target_event(void) = default;
-
-
-			inline static Uint32 regiser_event(void);
 
 		private:
 			uuid scene_id_;
@@ -40,6 +37,8 @@ namespace engine
 	{
 		scene_id_ = e.scene_id_;
 		object_id_ = e.object_id_;
+
+		return *this;
 	}
 
 	inline target_event& target_event::operator=(target_event&& e)
@@ -47,10 +46,11 @@ namespace engine
 		scene_id_ = std::move(e.scene_id_);
 		object_id_ = std::move( e.object_id_);
 		
+		return *this;
 	}
 
 
-	inline const uuid& target_event::object_id(void)
+	inline const uuid& target_event::object_id(void) const
 	{
 		return object_id_;
 	}

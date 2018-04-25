@@ -13,6 +13,7 @@ namespace engine
 	class event;
 	class camera;
 	class window;
+	class log;
 
 	class scene
 	{
@@ -26,12 +27,13 @@ namespace engine
 			scene& operator=(const scene& s) = delete;
 			scene& operator=(scene&& s) = delete;
 
-			void add_object(game_object* obj, const glm::vec3& pos);
+			void add_object(game_object* obj);
 			game_object* get_object(const uuid& id);
 
 			std::vector<game_object*> collision(game_object* obj);		
 
 			void broadcast(const event& e); 
+			void broadcast_unit_handle(const event& e);
 			void notify(const uuid& id, const event& e);
 			
 			void remove_object(const uuid& id);
@@ -58,9 +60,7 @@ namespace engine
 			std::vector<window*> attached_windows_;
 			std::vector<std::unique_ptr<camera>> cameras_;
 			uuid id_;
-	};
-	class game_object
-	{
+			log* log_;
 
 	};
 }

@@ -197,7 +197,7 @@ namespace engine
 	{
 		if(!scene_)
 		{
-		//	return ;
+			return ;
 		}
 		
 		int x, y, w,h;
@@ -212,7 +212,7 @@ namespace engine
 			it.first->apply();
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
-		//	scene_->render();
+			scene_->render();
 		}
 
 		if(is_showing())
