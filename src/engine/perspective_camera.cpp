@@ -14,15 +14,15 @@ namespace engine
 			fovy_{fovy}, aspect_{aspect}, near_{near}, far_{far}
 	{}
 	
-	void perspective_camera::apply(void)
+	void perspective_camera::apply(int w, int h)
 	{
+		aspect_ = static_cast<float>(w) / h;
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		gluPerspective(fovy_, aspect_, near_, far_);
 		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt(	eye_[0], eye_[1], eye_[3],
-					point_[0], point_[1], point_[3],
+		gluLookAt(	eye_[0], eye_[1], eye_[2],
+					point_[0], point_[1], point_[2],
 					0, 1, 0);
 	}
 }

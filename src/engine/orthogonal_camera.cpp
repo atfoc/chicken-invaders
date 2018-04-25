@@ -49,8 +49,11 @@ namespace engine
 		}
 	}
 	
-	void orthogonal_camera::apply(void)
+	void orthogonal_camera::apply(int w, int h)
 	{
+		static_cast<void>(w);
+		static_cast<void>(h);
+
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(left_, right_, down_, up_, near_, far_);

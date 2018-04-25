@@ -1,11 +1,13 @@
 #ifndef ORTHOGONAL_CAMERA_HPP_CAZIVR2N
 #define ORTHOGONAL_CAMERA_HPP_CAZIVR2N
 
+#include "engine/camera.hpp"
+
 namespace rg
 {
 namespace engine
 {
-	class orthogonal_camera
+	class orthogonal_camera :  public camera
 	{
 		public:
 			orthogonal_camera(	float left, float right, float up,
@@ -22,7 +24,7 @@ namespace engine
 
 			void zoom(float z);
 
-			void apply(void);
+			void apply(int w, int h);
 
 		private:
 			float left_, right_, up_, down_, near_, far_;

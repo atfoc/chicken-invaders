@@ -35,8 +35,9 @@ namespace engine
 
 		gl_context_ = SDL_GL_CreateContext(window_);
 		SDL_GL_MakeCurrent(window_, gl_context_);
-		glClearColor(1,1,1,1);
+		glClearColor(0,0,0,1);
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_LIGHTING);
 	}
 
 	window::window(window&& w)
@@ -77,23 +78,7 @@ namespace engine
 		scene_ = nullptr;
 	}
 
-	template<typename Callable>
-	void window::attach_camera(int cam_id, Callable view_port)
-	{
-		if(!scene_)
-		{
-			return ;
-		}
-
-		camera* cam{scene_->get_camera(cam_id)};
-
-		if(!cam)
-		{
-			return ;
-		}
-
-		cameras_.push_back(std::make_pair(cam, view_port));
-	}
+	
 
 	void window::detach_camera(int cam_id)
 	{
@@ -130,7 +115,6 @@ namespace engine
 					if(e_.code() == user_event_code<render_event>::value)
 					{
 						render();
-						(*log_) << log::priority::debug << "Render event recived win_id: " << id() << log::end_log;
 					}
 				}
 				catch(std::exception& c)
@@ -202,19 +186,19 @@ namespace engine
 		
 		int x, y, w,h;
 		SDL_GL_MakeCurrent(window_, gl_context_);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
 		for(auto&& it : cameras_)
 		{
 			std::tie(x, y, w, h) = it.second(width(), height());
 			glViewport(x,y,w,h);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-			it.first->apply();
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
+			it.first->apply(w, h);
 			scene_->render();
 		}
 
+		SDL_GL_SwapWindow(window_);
 		if(is_showing())
 		{
 			void* arg = reinterpret_cast<void*>(id());
@@ -252,6 +236,7 @@ namespace engine
 			SDL_GL_DeleteContext(gl_context_);
 			SDL_DestroyWindow(window_);
 		}
+		(*log_) << log::priority::debug << "~window" << log::end_log;
 	}
 
 	static Uint32 on_render_timer(Uint32 interval, void* arg)

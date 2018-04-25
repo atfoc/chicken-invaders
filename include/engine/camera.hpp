@@ -9,9 +9,8 @@ namespace engine
 	{
 		public:
 			camera(void) = default;		
-			camera(const camera& cam) = default;
 			
-			virtual void apply(void) = 0;
+			virtual void apply(int w, int h) = 0;
 
 			virtual ~camera(void) = default;
 	};

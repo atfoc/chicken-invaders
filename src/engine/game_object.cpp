@@ -5,6 +5,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <algorithm>
 #include "engine/event.hpp"
+#include "engine/scene.hpp"
+#include "engine/application.hpp"
+#include "engine/log.hpp"
 
 namespace rg
 {
@@ -42,12 +45,12 @@ namespace engine
 		return false;
 	}
 
-	const glm::mat4x4& game_object::transformation(void)
+	const glm::mat4& game_object::transformation(void)
 	{
 		return transformation_;
 	}
 
-	void game_object::transformation(const glm::mat4x4& pos)
+	void game_object::transformation(const glm::mat4& pos)
 	{
 		transformation_ = pos;
 	}
@@ -94,5 +97,17 @@ namespace engine
 		return id_;
 	}
 
+
+	void game_object::on_attached(rg::engine::scene *s)
+	{
+		attached_scene_  = s;
+	}
+
+	rg::engine::scene* game_object::scene(void)
+	{
+		return attached_scene_;
+	}
+
+	
 }
 }

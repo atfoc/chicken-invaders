@@ -14,6 +14,7 @@ namespace engine
 	class camera;
 	class window;
 	class log;
+	class light;
 
 	class scene
 	{
@@ -50,6 +51,9 @@ namespace engine
 			void attach(window* w); 
 			void detach(window* w);
 
+			void add_light(light* l);
+			void remove_light(int id);
+
 			std::vector<window*> windows(void);
 
 			const uuid& id(void);
@@ -59,6 +63,7 @@ namespace engine
 			std::map<uuid, std::unique_ptr<game_object>> game_objects_;
 			std::vector<window*> attached_windows_;
 			std::vector<std::unique_ptr<camera>> cameras_;
+			std::vector<std::unique_ptr<light>> lights_;
 			uuid id_;
 			log* log_;
 

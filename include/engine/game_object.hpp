@@ -12,6 +12,7 @@ namespace rg
 namespace engine
 {
 	class event;
+	class scene;
 
 	class game_object
 	{
@@ -38,10 +39,16 @@ namespace engine
 			bool visable(void);
 
 			const uuid& id(void);
+			virtual ~game_object(void) = default;
+			
+			void on_attached(scene *s);
+
+			rg::engine::scene* scene(void);
 		private:
 			glm::mat4 transformation_;
 			uuid id_;
 			bool visable_;
+			rg::engine::scene* attached_scene_;
 	};
 }
 }

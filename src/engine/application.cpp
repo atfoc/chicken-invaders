@@ -159,6 +159,12 @@ namespace application
 	void remove_window(int id)
 	{
 		windows_.erase(id);	
+		if(windows_.empty())
+		{
+			SDL_Event e;
+			e.type = SDL_QUIT;
+			post_event(built_in_event(e));
+		}
 	}
 
 	void remove_scene(const uuid& id)

@@ -3,6 +3,8 @@
 
 
 #include <SDL2/SDL_events.h>
+#include "engine/application.hpp"
+#include "engine/log.hpp"
 
 namespace rg
 {

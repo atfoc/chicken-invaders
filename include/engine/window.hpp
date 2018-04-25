@@ -7,9 +7,8 @@
 #include "engine/event.hpp"
 #include "engine/id.hpp"
 #include "engine/camera.hpp"
-
-namespace rg
-{
+#include "engine/scene.hpp"
+namespace rg {
 namespace engine
 {
 	class scene;
@@ -66,6 +65,24 @@ namespace engine
 			SDL_GLContext gl_context_;
 			log* log_;
 	};
+
+	template<typename Callable>
+	void window::attach_camera(int cam_id, Callable view_port)
+	{
+		if(!scene_)
+		{
+			return ;
+		}
+
+		camera* cam{scene_->get_camera(cam_id)};
+
+		if(!cam)
+		{
+			return ;
+		}
+
+		cameras_.push_back(std::make_pair(cam, view_port));
+	}
 }
 }
 

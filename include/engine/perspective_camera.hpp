@@ -2,12 +2,13 @@
 #define PERSPECTIVE_CAMERA_HPP_FL4JBIBP
 
 #include <glm/vec3.hpp>
+#include "engine/camera.hpp"
 
 namespace rg
 {
 namespace engine
 {
-	class perspective_camera
+	class perspective_camera : public camera
 	{
 		public:
 			perspective_camera(	const glm::vec3& eye, const glm::vec3& point,
@@ -32,7 +33,7 @@ namespace engine
 			inline void far(float f);
 			inline float far(void);
 
-			void apply(void);
+			void apply(int w, int h);
 
 		private:
 			glm::vec3 eye_;

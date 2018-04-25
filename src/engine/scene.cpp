@@ -8,6 +8,7 @@
 #include "engine/game_object.hpp"
 #include "engine/application.hpp"
 #include "engine/log.hpp"
+#include "engine/light.hpp"
 
 namespace rg
 {
@@ -30,12 +31,18 @@ namespace engine
 			game_object* obj = it.second->copy();
 			add_object(obj);
 		}
+
+		for(auto&& it: s.lights_)
+		{
+			lights_.push_back(std::make_unique<light>(*it));
+		}
 	}
 
 	scene::scene(scene&& s)
 		:	game_objects_(std::move(s.game_objects_)),
 			attached_windows_(std::move(s.attached_windows_)),
 			cameras_(std::move(s.cameras_)),
+			lights_(std::move(s.lights_)),
 			id_(std::move(s.id_)),
 			log_{s.log_}
 	{
@@ -46,6 +53,7 @@ namespace engine
 	void scene::add_object(game_object* obj)
 	{
 		game_objects_.insert(std::make_pair(obj->id(), std::unique_ptr<game_object>(obj)));
+		obj->on_attached(this);
 	}
 
 	game_object* scene::get_object(const uuid& id)
@@ -102,16 +110,30 @@ namespace engine
 	
 	void scene::render(void)
 	{
-		/*TODO:Setup lights*/
+		int i{0};
+		for(auto&& it: lights_)
+		{
+			it->turn_on(i);
+			it->apply(i);
+			++i;
+		}
+
 		for(auto&& it : game_objects_)
 		{
 			if(it.second->visable())
 			{
+				it.second->on_frame();
 				glPushMatrix();
 				it.second->apply_transformations();
 				it.second->render();
 				glPopMatrix();
 			}
+		}
+
+		i = 0;
+		for(auto&& it  : lights_)
+		{
+			it->turn_off(i);
 		}
 
 	}
@@ -199,13 +221,31 @@ namespace engine
 		return id_;
 	}
 
+	
+
+	void scene::add_light(light* l)
+	{
+		/*TODO: check if it can be added and return error code*/
+		lights_.push_back(std::unique_ptr<light>(l));
+	}
+
+	void scene::remove_light(int id)
+	{
+		if(id < 0 || id >= lights_.size())
+		{
+			return ;
+		}
+
+		lights_.erase(lights_.begin() + id);
+	}
+
 	scene::~scene(void)
 	{
 		for(auto&& it : attached_windows_)
 		{
 			it->detach_scene();
 		}
+		(*log_) << log::priority::debug << "~scene" << log::end_log;
 	}
-
 }
 }

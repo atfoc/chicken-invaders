@@ -18,7 +18,7 @@
 + [x] constructor(name, posx, posy, width, height)
 + [x] copy_constructor = delete
 + [x] move constructor
-+ [x] move assignment 
++ [x] move assignment
 + [x] attach_scene(scene_id)
 + [x] attahc_camera(camera_id, view_port_function)
 + [x] detach_camera(camera_id)
