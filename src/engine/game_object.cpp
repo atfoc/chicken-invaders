@@ -35,7 +35,7 @@ namespace engine
 		/*This is default implementation of this function*/
 	}
 
-	bool handle_events(const event& e)
+	bool game_object::handle_events(const event& e)
 	{
 		/*This is default implementation of this function*/
 		static_cast<void>(e);
