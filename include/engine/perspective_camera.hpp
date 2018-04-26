@@ -33,6 +33,7 @@ namespace engine
 			inline void far(float f);
 			inline float far(void);
 
+			camera* copy(void);
 			void apply(int w, int h);
 
 		private:

@@ -24,6 +24,8 @@ namespace engine
 
 			void zoom(float z);
 
+			camera* copy(void);
+
 			void apply(int w, int h);
 
 		private:

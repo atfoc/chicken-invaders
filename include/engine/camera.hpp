@@ -12,6 +12,7 @@ namespace engine
 			
 			virtual void apply(int w, int h) = 0;
 
+			virtual camera* copy(void) = 0;
 			virtual ~camera(void) = default;
 	};
 }

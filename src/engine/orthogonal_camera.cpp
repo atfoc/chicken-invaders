@@ -59,5 +59,10 @@ namespace engine
 		glOrtho(left_, right_, down_, up_, near_, far_);
 		glMatrixMode(GL_MODELVIEW);
 	}
+
+	camera* orthogonal_camera::copy(void)
+	{
+		return new orthogonal_camera(*this);
+	}
 }
 }

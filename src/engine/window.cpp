@@ -56,15 +56,27 @@ namespace engine
 
 	void window::attach_scene(scene* s)
 	{
+		bool dirty{false};
 		if(!application::scene_exist(s->id()))
 		{
 			return ;
 		}
-		/*TODO: if scene is attahced after no scene was attached reset timer for render*/
-		detach_scene();
+
+		if(scene_)
+		{
+			detach_scene();
+		}
+		else
+		{
+			dirty = true;
+		}
 
 		scene_ = s;
 		scene_->attach(this);
+		if(dirty)
+		{
+			application::post_event(render_event(id()));
+		}
 	}
 
 	void window::detach_scene(void)

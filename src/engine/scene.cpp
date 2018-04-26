@@ -9,6 +9,8 @@
 #include "engine/application.hpp"
 #include "engine/log.hpp"
 #include "engine/light.hpp"
+#include "engine/pause_event.hpp"
+#include "engine/resume_event.hpp"
 
 namespace rg
 {
@@ -25,11 +27,15 @@ namespace engine
 			log_{s.log_}
 
 	{
-		/*TODO: implement copying of game_objects and cameras */
 		for(auto&& it: s.game_objects_)
 		{
 			game_object* obj = it.second->copy();
 			add_object(obj);
+		}
+
+		for(auto&& it : s.cameras_)
+		{
+			add_camera(it->copy());
 		}
 
 		for(auto&& it: s.lights_)
@@ -190,7 +196,7 @@ namespace engine
 	{
 		if(attached_windows_.empty())		
 		{
-			/*TODO: broadcast resume event*/
+			broadcast(resume_event(id_));
 		}
 
 		attached_windows_.push_back(w);
@@ -207,7 +213,7 @@ namespace engine
 
 		if(attached_windows_.empty())
 		{
-			/*TODO: broadcast pause event*/
+			broadcast(pause_event(id_));
 		}
 	}
 	
