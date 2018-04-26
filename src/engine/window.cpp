@@ -107,6 +107,7 @@ namespace engine
 	{
 		switch(e.type())
 		{
+			SDL_Event e_;
 			case SDL_USEREVENT:
 				try
 				{
@@ -125,6 +126,12 @@ namespace engine
 				break;
 			case SDL_WINDOWEVENT:
 				/*TODO: stop rendering when minimized and continue when maximized maybe*/	
+				e_ = e.sdl_event();
+				if(e_.window.event== SDL_WINDOWEVENT_SHOWN)
+				{
+					application::post_event(render_event(id()));
+				}
+					
 				break;
 			default:
 				if(!scene_)

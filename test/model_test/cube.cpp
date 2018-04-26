@@ -17,7 +17,6 @@ cube::cube(float w, float h, float depth, const rg::engine::color& c) :	w_{w}, h
 
 void cube::on_frame(void)
 {
-	transform(glm::rotate(glm::mat4(1), 0.05f,glm::vec3{0,1,0}));
 }
 
 void cube::render(void)
@@ -71,10 +70,27 @@ void cube::render(void)
 
 bool cube::handle_events(const rg::engine::event& e)
 {
+	SDL_Event e_;
 	switch(e.type())
 	{
+
+		case SDL_KEYDOWN:
+			e_ = e.sdl_event();
+			if(e_.key.keysym.sym == SDLK_LEFT)
+			{
+				(*rg::engine::application::logger()) <<rg::engine::log::priority::debug <<"Left down recived" << rg::engine::log::end_log;
+				transform(glm::rotate(glm::mat4(1), 0.1f, glm::vec3{0,1,0}));	
+			}
+			else if(e_.key.keysym.sym == SDLK_RIGHT)
+			{
+				(*rg::engine::application::logger()) <<rg::engine::log::priority::debug <<"Right down recived" << rg::engine::log::end_log;
+				transform(glm::rotate(glm::mat4(1), -0.1f, glm::vec3{0,1,0}));	
+			}
+
+
+			break;
 		case SDL_KEYUP:
-			SDL_Event e_ = e.sdl_event();
+			e_ = e.sdl_event();
 			if(e_.key.keysym.sym == SDLK_SPACE)
 			{
 				if(changed)
@@ -88,8 +104,8 @@ bool cube::handle_events(const rg::engine::event& e)
 
 				w = *it;
 
-				rg::engine::scene* s = new rg::engine::scene;		
-				rg::engine::camera* c1 = 
+				rg::engine::scene* s = new rg::engine::scene;
+				rg::engine::camera* c1 =
 					new rg::engine::perspective_camera(glm::vec3{2,3,5}, glm::vec3{0,0,0}, 60, static_cast<float>(w->width()) / w->height(), 1, 10);
 
 				s->add_camera(c1);
@@ -107,6 +123,7 @@ bool cube::handle_events(const rg::engine::event& e)
 				rg::engine::application::remove_window(e_.key.windowID);
 			}
 			break;
+
 	}
 	return true;
 }
