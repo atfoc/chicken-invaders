@@ -6,3 +6,4 @@
 + [ ] work on error reporting
 + [ ] add const to functions 
 + [ ] const correctnes to function arguments
++ [ ] add transfomation decomposition
