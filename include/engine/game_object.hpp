@@ -3,6 +3,7 @@
 
 #include <array>
 #include "engine/id.hpp"
+#include "engine/box.hpp"
 #include <glm/matrix.hpp>
 
 
@@ -27,6 +28,7 @@ namespace engine
 			virtual void on_collision(game_object& obj);
 			virtual void render(void);
 			virtual game_object* copy(void) = 0;
+			virtual box box_mash(void) = 0;
 
 			void apply_transformations(void);
 
@@ -42,6 +44,10 @@ namespace engine
 			virtual ~game_object(void) = default;
 			
 			void on_attached(scene *s);
+
+			
+			glm::vec3 position(void);
+
 
 			rg::engine::scene* scene(void);
 		private:

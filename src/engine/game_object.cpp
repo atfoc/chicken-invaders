@@ -108,6 +108,11 @@ namespace engine
 		return attached_scene_;
 	}
 
+	glm::vec3 game_object::position(void)
+	{
+		return transformation_*glm::vec4{0,0,0, 0};
+	}
+
 	
 }
 }
