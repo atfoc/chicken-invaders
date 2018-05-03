@@ -1,3 +1,4 @@
+#include <SDL2/SDL.h>
 #include <map>
 #include <GL/gl.h>
 #include "engine/application.hpp"
@@ -8,7 +9,6 @@
 #include "engine/built_in_event.hpp"
 #include "engine/window.hpp"
 #include "engine/scene.hpp"
-#include <SDL2/SDL.h>
 
 namespace rg
 {
@@ -19,7 +19,8 @@ namespace application
 
 	static log log_(true, "application.log");
 	static std::map<Uint32, std::unique_ptr<window>> windows_;
-	static std::map<uuid, std::unique_ptr<scene>> scenes_;	
+	static std::map<uuid, std::unique_ptr<class scene>> scenes_;	
+	std::map<uuid, std::thread> threads_;
 
 	void init(int argc, char** argv)
 	{
@@ -27,6 +28,8 @@ namespace application
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
+		/*TODO: make this toggle with arguments*/
+		//SDL_SetRelativeMouseMode(SDL_TRUE);
 		glEnable(GL_DEPTH_TEST);
 		glClearColor(1,1,1,1);
 	}
@@ -77,6 +80,18 @@ namespace application
 								windows_[r->w_id()]->handle_events(*e_);
 							}
 						}
+						else if(e_->code() == user_event_code<thread_finished_event>::value)
+						{
+							thread_finished_event* tf{dynamic_cast<thread_finished_event*>(e_)};
+							auto it = threads_.find(tf->th_id());
+
+							if(it != threads_.end())
+							{
+								it->second.join();
+								log_ << log::priority::info << "Succesfuly joined with thread" << log::end_log;
+								threads_.erase(it);
+							}
+						}
 						else
 						{
 							if(scene_exist(e_->scene_id()))
@@ -118,8 +133,7 @@ namespace application
 				case SDL_MOUSEBUTTONDOWN:
 					if(windows_.find(e.button.windowID) != windows_.end())
 					{
-						windows_[e.button.windowID]->handle_events(built_in_event(e));
-					}
+						windows_[e.button.windowID]->handle_events(built_in_event(e)); }
 					break;
 				case SDL_MOUSEWHEEL:
 					if(windows_.find(e.wheel.windowID) != windows_.end())
@@ -130,6 +144,7 @@ namespace application
 				case SDL_QUIT:
 					windows_.clear();
 					scenes_.clear();
+					threads_.clear();
 					quit = true;	
 					break;
 			}
@@ -141,9 +156,9 @@ namespace application
 		return &log_;
 	}
 
-	void add_scene(scene* s)
+	void add_scene(class scene* s)
 	{
-			auto it = scenes_.insert(std::make_pair(s->id(),std::unique_ptr<scene>(s)));
+		auto it = scenes_.insert(std::make_pair(s->id(),std::unique_ptr<class scene>(s)));
 
 		if(!it.second)
 		{
@@ -170,6 +185,18 @@ namespace application
 	void remove_scene(const uuid& id)
 	{
 		scenes_.erase(id);
+	}
+
+	class scene* scene(const uuid& id)
+	{
+		auto it = scenes_.find(id);
+
+		if(scenes_.end() != it)
+		{
+			return it->second.get();
+		}
+
+		return nullptr;
 	}
 }
 }
