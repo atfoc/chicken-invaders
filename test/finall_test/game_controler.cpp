@@ -63,7 +63,9 @@ bool game_controler::handle_events(const rg::engine::event& e)
 
 				if(e_.code() == rg::engine::user_event_code<rg::engine::timer_event>::value)
 				{
-					(*app::logger()) << log_::priority::info << "Tick from timer in scene with id: " << scene()->id() << log_::end_log;
+					#ifdef TIMER_DEBUG
+						(*app::logger()) << log_::priority::info << "Tick from timer in scene with id: " << scene()->id() << log_::end_log;
+					#endif
 
 					for(auto&& it : color_cubes_)
 					{

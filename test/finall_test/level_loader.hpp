@@ -7,7 +7,7 @@
 #include "engine/support/bundle.hpp"
 #include "engine/id.hpp"
 
-class level_loader : rg::engine::game_object
+class level_loader : public rg::engine::game_object
 {
 	public:
 		level_loader(void);
@@ -24,6 +24,7 @@ class level_loader : rg::engine::game_object
 	private:
 		rg::engine::uuid back_scene_id_;
 		std::unique_ptr<rg::engine::timer> t_;
+		float end_animation_;
 		
 };
 
