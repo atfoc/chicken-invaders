@@ -13,7 +13,6 @@ namespace engine
 		public:
 			target_event(const uuid& scene_id, const uuid& object_id);
 			target_event(const target_event& e) = default;
-			target_event(target_event&& e) = default;
 
 
 			inline target_event& operator=(const target_event& e);

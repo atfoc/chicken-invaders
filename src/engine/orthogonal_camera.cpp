@@ -14,7 +14,8 @@ namespace engine
 	}
 
 	orthogonal_camera::orthogonal_camera(const orthogonal_camera& cam)
-		:	left_{cam.left_}, right_{cam.right_}, up_{cam.up_},
+		:	camera(cam),
+			left_{cam.left_}, right_{cam.right_}, up_{cam.up_},
 			down_{cam.down_}, near_{cam.near_}, far_{cam.far_}
 	{
 
