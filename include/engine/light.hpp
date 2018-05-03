@@ -5,6 +5,7 @@
 #include <array>
 #include <glm/vec4.hpp>
 #include "engine/color.hpp"
+#include "engine/id.hpp"
 
 namespace rg 
 {
@@ -24,13 +25,17 @@ namespace engine
 			inline const std::array<rg::engine::color, 3>& color(void);
 			inline void color(int id, const rg::engine::color& c);
 
-			void turn_on(int id);
-			void turn_off(int id);
+			void turn_on(void);
+			void turn_off(void);
+			inline bool on(void);
 			void apply(int id);
+
+			inline uuid id(void);
 		private:
 			const static std::array<GLenum, 8> lights_id_;
 			glm::vec4 pos_;
 			std::array<rg::engine::color, 3> colors_;
+			uuid id_; bool on_; 
 	};
 
 	inline const glm::vec4& light::position(void)
@@ -54,6 +59,16 @@ namespace engine
 		if(0 < id || id > 2)
 			return ;
 		colors_[id] = c;
+	}
+
+	inline bool light::on(void)
+	{
+		return on_;
+	}
+
+	inline uuid light::id(void)
+	{
+		return id_;
 	}
 }
 }
