@@ -11,8 +11,11 @@
 #include "engine/light.hpp"
 #include "engine/pause_event.hpp"
 #include "engine/resume_event.hpp"
+#include "engine/removed_event.hpp"
 
-namespace rg
+static const std::array<GLenum, 8> lights_id_{{GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL_LIGHT3,GL_LIGHT4,GL_LIGHT5,GL_LIGHT6,GL_LIGHT7}};
+
+namespace rg 
 {
 namespace engine
 {
@@ -111,7 +114,15 @@ namespace engine
 	
 	void scene::remove_object(const uuid& id)
 	{
-		game_objects_.erase(id);
+		
+		auto it = game_objects_.find(id);
+		if(game_objects_.end() != it)
+		{
+			broadcast(removed_event(id_, it->first));
+			game_objects_.erase(id);
+		}
+
+
 	}
 	
 	void scene::render(void)
@@ -119,7 +130,11 @@ namespace engine
 		int i{0};
 		for(auto&& it: lights_)
 		{
-			it->turn_on(i);
+			if(!it->on())
+			{
+				continue;
+			}
+			glEnable(lights_id_[i]);
 			it->apply(i);
 			++i;
 		}
@@ -139,7 +154,11 @@ namespace engine
 		i = 0;
 		for(auto&& it  : lights_)
 		{
-			it->turn_off(i);
+			if(!it->on())
+			{
+				continue;
+			}
+			glDisable(lights_id_[i]);
 		}
 
 	}
@@ -152,7 +171,14 @@ namespace engine
 				try
 				{
 					const target_event& te(dynamic_cast<const target_event&>(e));
-					notify(te.object_id(),e);
+					if(te.object_id() != uuids::null_id)
+					{
+						notify(te.object_id(),e);
+					}
+					else
+					{
+						broadcast(e);
+					}
 				}
 				catch(std::exception& exp)
 				{
@@ -170,25 +196,32 @@ namespace engine
 		cameras_.push_back(std::unique_ptr<camera>(c));		
 	}
 
-	camera* scene::get_camera(int id)
+	camera* scene::get_camera(const uuid& id)
 	{
-		if(id < 0 || id >= cameras_.size())
+		auto it = std::find_if(cameras_.begin(), cameras_.end(), [&](auto&& i){return i->id() == id;});
+		if(cameras_.end() == it)
 		{
 			return nullptr;
 		}
-		
-		return cameras_[id].get();
+		return it->get();
 	}
 
-	void scene::remove_camera(int id)
+	void scene::remove_camera(const uuid& id)
 	{
-		if(id < 0 || id >= cameras_.size())
+		auto it = std::find_if(cameras_.begin(), cameras_.end(), [&](auto&& i){return i->id() == id;});
+		if(cameras_.end() == it)
 		{
 			return ;
 		}
-
-		cameras_.erase(cameras_.begin() + id);
 		
+		for(auto&& i :attached_windows_)
+		{
+			i->detach_camera((*it)->id());
+		}
+
+		broadcast(removed_event(id_, (*it)->id()));
+		cameras_.erase(it);
+
 
 	}
 	
@@ -215,6 +248,7 @@ namespace engine
 		{
 			broadcast(pause_event(id_));
 		}
+
 	}
 	
 	std::vector<window*> scene::windows(void)
@@ -235,14 +269,16 @@ namespace engine
 		lights_.push_back(std::unique_ptr<light>(l));
 	}
 
-	void scene::remove_light(int id)
+	void scene::remove_light(const uuid& id)
 	{
-		if(id < 0 || id >= lights_.size())
+		auto it = std::find_if(lights_.begin(), lights_.end(), [&](auto&& i){return i->id() == id;});
+
+		if(lights_.end() != it)
 		{
-			return ;
+			broadcast(removed_event(id_, (*it)->id()));
+			lights_.erase(it);
 		}
 
-		lights_.erase(lights_.begin() + id);
 	}
 
 	scene::~scene(void)

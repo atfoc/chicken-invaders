@@ -45,14 +45,14 @@ namespace engine
 			void handle_events(const event& e);
 
 			void add_camera(camera* c);
-			camera* get_camera(int id);
-			void remove_camera(int id);
+			camera* get_camera(const uuid& id);
+			void remove_camera(const uuid& id);
 
 			void attach(window* w); 
 			void detach(window* w);
 
 			void add_light(light* l);
-			void remove_light(int id);
+			void remove_light(const uuid& id);
 
 			std::vector<window*> windows(void);
 
