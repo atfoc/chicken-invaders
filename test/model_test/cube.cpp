@@ -116,7 +116,7 @@ bool cube::handle_events(const rg::engine::event& e)
 
 				w->detach_scene();
 				w->attach_scene(s);
-				w->attach_camera(0, [](int w, int h){return std::make_tuple(0,0,w,h);});
+				w->attach_camera(c1->id(), [](int w, int h){return std::make_tuple(0,0,w,h);});
 			}
 			else if(e_.key.keysym.sym == SDLK_ESCAPE)
 			{

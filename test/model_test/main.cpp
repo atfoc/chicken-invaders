@@ -32,11 +32,11 @@ int main(int argc, char *argv[])
 	rg::engine::application::add_window(w1);
 	
 	w->attach_scene(s);
-	w->attach_camera(0,[](int w, int h){return std::make_tuple(0,0, w, h/2);});
-	w->attach_camera(1,[](int w, int h){return std::make_tuple(0,h/2, w, h/2);});
+	w->attach_camera(c->id(),[](int w, int h){return std::make_tuple(0,0, w, h/2);});
+	w->attach_camera(c1->id(),[](int w, int h){return std::make_tuple(0,h/2, w, h/2);});
 
 	w1->attach_scene(s);
-	w1->attach_camera(2,[](int w, int h){return std::make_tuple(0,0, w, h);});
+	w1->attach_camera(c2->id(),[](int w, int h){return std::make_tuple(0,0, w, h);});
 	
 	w->show(true);
 	w1->show(true);
