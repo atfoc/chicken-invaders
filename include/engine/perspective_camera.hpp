@@ -13,7 +13,7 @@ namespace engine
 		public:
 			perspective_camera(	const glm::vec3& eye, const glm::vec3& point,
 								float fovy, float aspect, float near, float far);
-			perspective_camera(const perspective_camera& cam) = default;
+			perspective_camera(const perspective_camera& cam);
 
 			inline void eye(const glm::vec3& p);
 			inline const glm::vec3& eye(void);

@@ -14,6 +14,13 @@ namespace engine
 			fovy_{fovy}, aspect_{aspect}, near_{near}, far_{far}
 	{}
 	
+
+	perspective_camera::perspective_camera(const perspective_camera& cam)
+		:	camera(cam),
+			eye_(cam.eye_), point_(cam.point_),
+			fovy_{cam.fovy_}, aspect_{cam.aspect_}, near_{cam.near_}, far_{cam.far_}
+	{}
+
 	void perspective_camera::apply(int w, int h)
 	{
 		aspect_ = static_cast<float>(w) / h;
