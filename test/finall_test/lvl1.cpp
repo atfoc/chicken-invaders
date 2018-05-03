@@ -34,7 +34,7 @@ engine::scene* lvl1::scene(void)
 	
 	for(int i = 0; i < 10; ++i)
 	{
-		ptmp = new player(c, gen_random_cord(20, 10));
+		ptmp = new player(c, gen_random_cord(40, 10));
 		gc->add_player(ptmp);
 	}
 
@@ -45,7 +45,7 @@ engine::scene* lvl1::scene(void)
 	for(int i = 0; i < 1000; ++i)
 	{
 		ctmp = new cube(1,1,1, gen_random_color());
-		ctmp->transform(glm::translate(glm::mat4(1), gen_random_cord(20, 10)));
+		ctmp->transform(glm::translate(glm::mat4(1), gen_random_cord(40, 10)));
 		s->add_object(ctmp);
 	
 		rtmp = std::rand() % 3;
