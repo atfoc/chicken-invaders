@@ -92,21 +92,21 @@ namespace engine
 
 	
 
-	void window::detach_camera(int cam_id)
+	void window::detach_camera(const uuid& id)
 	{
 		if(!scene_)
 		{
 			return ;
 		}
 
-		camera* cam{scene_->get_camera(cam_id)};
+		camera* cam{scene_->get_camera(id)};
 
 		if(!cam)
 		{
 			return ;
 		}
 
-		auto it = std::find(cameras_.begin(), cameras_.end(), cam);
+		auto it = std::find_if(cameras_.begin(), cameras_.end(), [&](auto&& i){return i.first->id() == id;});
 
 		if(cameras_.end() != it)
 		{
@@ -266,6 +266,43 @@ namespace engine
 		application::post_event(render_event(w_id));
 		
 		return 0;
+	}
+
+	void window::attach_scene(const uuid& id)
+	{
+		auto s = application::scene(id);
+
+		if(nullptr != s)
+		{
+			attach_scene(s);
+		}
+	}
+
+	void window::attach_scene(const uuid& id, const event& e)
+	{
+		auto s = application::scene(id);
+
+		if(nullptr != s)
+		{
+			s->broadcast(e);
+			attach_scene(s);
+		}
+
+	}
+
+	void window::detach_scene(const event& e)
+	{
+		scene* s{nullptr};
+
+		if(scene_)
+		{
+			s = scene_;
+			detach_scene();
+		}
+		if(s)
+		{
+			s->broadcast(e);
+		}
 	}
 }
 }

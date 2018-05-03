@@ -30,11 +30,14 @@ namespace engine
 			window& operator=(window&& w) = delete;
 
 			void attach_scene(scene* id);	
+			void attach_scene(const uuid& id);
+			void attach_scene(const uuid& id, const event& e);
 			void detach_scene(void);
+			void detach_scene(const event& e);
 
 			template<typename Callable>
-			void attach_camera(int cam_id, Callable view_port); 
-			void detach_camera(int cam_id);
+			void attach_camera(const uuid& id, Callable view_port); 
+			void detach_camera(const uuid& id);
 				
 
 			bool handle_events(const event& e);
@@ -67,14 +70,14 @@ namespace engine
 	};
 
 	template<typename Callable>
-	void window::attach_camera(int cam_id, Callable view_port)
+	void window::attach_camera(const uuid& id, Callable view_port)
 	{
 		if(!scene_)
 		{
 			return ;
 		}
 
-		camera* cam{scene_->get_camera(cam_id)};
+		camera* cam{scene_->get_camera(id)};
 
 		if(!cam)
 		{
