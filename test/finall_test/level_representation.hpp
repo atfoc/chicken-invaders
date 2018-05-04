@@ -25,6 +25,7 @@ class level_representation : public rg::engine::game_object
 		bool color_;
 		rg::engine::color c_;
 		bool selected_;
+		int color_change_;
 		
 };
 

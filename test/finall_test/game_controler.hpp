@@ -35,6 +35,7 @@ class game_controler  : public rg::engine::game_object
 		size_t curr_player_;
 		rg::engine::uuid back_scene_;
 		rg::engine::uuid camid_;
+		int color_change_;
 };
 
 #endif /* end of include guard: GAME_CONTROLER_HPP_NJBXIHKJ */

@@ -6,7 +6,8 @@ level_representation::level_representation(bool rotate, bool color)
 	:	rotate_{rotate},
 		color_{color},
 		c_("#ff0000"),
-		selected_{false}
+		selected_{false},
+		color_change_{20}
 {
 
 }
@@ -45,7 +46,12 @@ void level_representation::on_tick(void)
 {
 	if(color_)
 	{
-		c_ = gen_random_color();		
+		--color_change_;
+		if(0 == color_change_)
+		{
+			c_ = gen_random_color();		
+			color_change_ = 20;
+		}
 	}
 	if(rotate_)
 	{

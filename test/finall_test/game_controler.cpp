@@ -22,7 +22,7 @@ namespace app = rg::engine::application;
 rg::engine::color gen_random_color(void);
 
 game_controler::game_controler(void) 
-	: t_(nullptr), curr_player_{0}
+	: t_(nullptr), curr_player_{0},color_change_{20}
 {}
 
 game_controler::game_controler(const game_controler& o)
@@ -68,10 +68,16 @@ bool game_controler::handle_events(const rg::engine::event& e)
 						(*app::logger()) << log_::priority::info << "Tick from timer in scene with id: " << scene()->id() << log_::end_log;
 					#endif
 
-					for(auto&& it : color_cubes_)
+					--color_change_;
+					if(color_change_ == 0)
 					{
-						it->color(gen_random_color());
+						for(auto&& it : color_cubes_)
+						{
+							it->color(gen_random_color());
+						}
+						color_change_ = 20;
 					}
+					
 
 					for(auto&& it : rotate_cubes_)
 					{
