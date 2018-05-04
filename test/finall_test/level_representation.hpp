@@ -15,6 +15,7 @@ class level_representation : public rg::engine::game_object
 		rg::engine::game_object* copy(void);
 		rg::engine::box box_mash(void);
 
+		void selected(bool val);
 		void on_tick(void);
 
 
@@ -23,6 +24,7 @@ class level_representation : public rg::engine::game_object
 		bool rotate_;
 		bool color_;
 		rg::engine::color c_;
+		bool selected_;
 		
 };
 

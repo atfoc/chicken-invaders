@@ -50,23 +50,27 @@ bool level_loader::handle_events(const rg::engine::event& e)
 		{
 			const rg::engine::user_event& e_ = reinterpret_cast<const rg::engine::user_event&>(e);
 
-			if(rg::engine::user_event_code<rg::engine::support::bundle_event<rg::engine::uuid>>::value == e_.code())
+			if(rg::engine::user_event_code<rg::engine::support::bundle_event<rg::engine::uuid, rg::engine::uuid>>::value == e_.code())
 			{
-				auto be = reinterpret_cast<const rg::engine::support::bundle_event<rg::engine::uuid>&>(e_);
+				auto& be = dynamic_cast<const rg::engine::support::bundle_event<rg::engine::uuid, rg::engine::uuid>&>(e_);
 				
 				back_scene_id_ = std::get<0>(be);
+				camid_ = std::get<1>(be);
 				(*app::logger()) << log_::priority::info << "Registered back scene with id: " << back_scene_id_ << log_::end_log;
 				return true;
 			}
-			else if(rg::engine::user_event_code<rg::engine::support::bundle_event<rg::engine::scene*>>::value == e_.code())
+			else if(rg::engine::user_event_code<rg::engine::support::bundle_event<rg::engine::scene*, rg::engine::uuid>>::value == e_.code())
 			{
-				auto be = reinterpret_cast<const rg::engine::support::bundle_event<rg::engine::scene*>&>(e_);
+				auto& be = dynamic_cast<const rg::engine::support::bundle_event<rg::engine::scene*, rg::engine::uuid>&>(e_);
 				
 				auto s = std::get<0>(be);
+				auto cid = std::get<1>(be);
 				(*app::logger()) << log_::priority::info << "Recived scene to start with id: " << s->id() << log_::end_log;
 				app::add_scene(s);
 
-				scene()->windows()[0]->attach_scene(s->id(), support::make_bundle_event(s->id(), engine::uuids::null_id, back_scene_id_));
+				auto win = scene()->windows()[0];
+				win->attach_scene(s->id(), support::make_bundle_event(s->id(), engine::uuids::null_id, back_scene_id_, camid_));
+				win->attach_camera(cid, [](int w, int h){return std::make_tuple(0, 0, w, h);});
 				return true;
 			}
 			else if(engine::user_event_code<engine::timer_event>::value == e_.code())
@@ -101,7 +105,7 @@ bool level_loader::handle_events(const rg::engine::event& e)
 			{
 				if(t_)
 				{
-					t_->pause();
+					t_->stop();
 					(*app::logger()) << log_::priority::info << "Timer paused in scene with id: " << scene()->id() << log_::end_log;
 				}
 				return true;

@@ -17,11 +17,14 @@ class cube  : public rg::engine::game_object
 		void color(const rg::engine::color& c);
 		rg::engine::box box_mash(void);
 
+		void frame(bool val);
 		void on_frame(void);
 		~cube(void) = default;
+
 	private:
 		float w_, h_, d_;
 		rg::engine::color c_;
+		bool frame_;
 		
 };
 

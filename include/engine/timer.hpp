@@ -27,7 +27,6 @@ namespace engine
 		
 			void start(void);
 			void stop(void);
-			void pause(void);
 
 			bool started(void) const;
 			
@@ -43,9 +42,6 @@ namespace engine
 			bool started_;
 			bool continues_;
 			Uint32 delay_;
-			time_t time_started_;
-			bool paused_;
-			time_t passed_;
 			timer_info ti_;
 			
 			

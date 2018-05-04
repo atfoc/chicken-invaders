@@ -23,6 +23,7 @@ class level_loader : public rg::engine::game_object
 		
 	private:
 		rg::engine::uuid back_scene_id_;
+		rg::engine::uuid camid_;
 		std::unique_ptr<rg::engine::timer> t_;
 		float end_animation_;
 		

@@ -1,25 +1,24 @@
-#ifndef LVL1_HPP_JV4ETVKY
-#define LVL1_HPP_JV4ETVKY
+#ifndef LVL2_HPP_DTEAPXEG
+#define LVL2_HPP_DTEAPXEG
+
+
 
 #include "engine/perspective_camera.hpp"
 #include "level.hpp"
 
 
 
-class lvl1 : public level
+class lvl2 : public level
 {
 	public:
-		lvl1(void) = default;
-		lvl1(const lvl1& l) = default;
+		lvl2(void) = default;
+		lvl2(const lvl2& l) = default;
 	
 		rg::engine::scene* scene(void);
 		level_representation* representation(void);
 		rg::engine::uuid camera(void);
-
-		~lvl1(void) = default;
+		~lvl2(void) = default;
 	private:
 		rg::engine::perspective_camera* c;
 };
-
-#endif /* end of include guard: LVL1_HPP_JV4ETVKY */
-
+#endif /* end of include guard: LVL2_HPP_DTEAPXEG */

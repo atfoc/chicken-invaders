@@ -27,6 +27,7 @@ namespace engine
 			virtual bool handle_events(const event& e);
 			virtual void on_collision(game_object& obj);
 			virtual void render(void);
+			/*TODO: Remove this from api this is a bad choice*/
 			virtual game_object* copy(void) = 0;
 			virtual box box_mash(void) = 0;
 

@@ -20,6 +20,7 @@ namespace engine
 	{
 		public:
 			scene(void);
+			/*TODO: remove this scene should not be copyable*/
 			scene(const scene& s);
 			scene(scene&& s);
 

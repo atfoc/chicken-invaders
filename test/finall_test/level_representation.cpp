@@ -5,7 +5,8 @@
 level_representation::level_representation(bool rotate, bool color)	
 	:	rotate_{rotate},
 		color_{color},
-		c_("#ff0000")
+		c_("#ff0000"),
+		selected_{false}
 {
 
 }
@@ -13,7 +14,8 @@ level_representation::level_representation(const level_representation& l)
 	:	game_object(l),
 		rotate_{l.rotate_},
 		color_{l.color_},
-		c_(l.c_)
+		c_(l.c_),
+		selected_{l.selected_}
 {
 }
 
@@ -21,7 +23,9 @@ void level_representation::render(void)
 {
 	cube c(1,1,1,c_);
 
+	c.frame(selected_);
 	c.render();
+
 }
 
 rg::engine::game_object* level_representation::copy(void)
@@ -50,5 +54,10 @@ void level_representation::on_tick(void)
 }
 
 
+
+void level_representation::selected(bool val)
+{
+	selected_ = val;
+}
 
 

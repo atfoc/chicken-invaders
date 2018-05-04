@@ -2,6 +2,7 @@
 #define LEVEL_HPP_JEMUJOLD
 
 #include "engine/id.hpp"
+#include "level_representation.hpp"
 
 namespace rg
 {
@@ -19,8 +20,10 @@ class level
 		level(const level& l) = default;
 
 		virtual rg::engine::scene* scene(void) = 0;
-		virtual rg::engine::game_object* representation(void) = 0;
+		virtual level_representation* representation(void) = 0;
 		virtual rg::engine::uuid camera(void) = 0;
+
+		virtual ~level(void) = default;
 };
 
 

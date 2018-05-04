@@ -6,7 +6,7 @@
 #include "engine/light.hpp"
 #include "player.hpp"
 #include "game_controler.hpp"
-#include "lvl1.hpp"
+#include "lvl3.hpp"
 #include "cube.hpp"
 
 
@@ -16,7 +16,7 @@ namespace support = rg::engine::support;
 static glm::vec3 gen_random_cord(int xz, int y);
 rg::engine::color gen_random_color(void);
 
-engine::scene* lvl1::scene(void)
+engine::scene* lvl3::scene(void)
 {
 	engine::scene* s = new engine::scene;
 
@@ -29,7 +29,7 @@ engine::scene* lvl1::scene(void)
 
 	engine::light* l = new engine::light(glm::vec4{1, 0,0, 0});
 
-	game_controler* gc = new game_controler();
+	game_controler* gc = new game_controler;
 	
 	player* ptmp = nullptr;
 	
@@ -41,29 +41,16 @@ engine::scene* lvl1::scene(void)
 
 	ptmp->restore();
 	cube* ctmp = nullptr;
-	int rtmp;
 
-	for(int i = 0; i < 1000; ++i)
+	for(int i = 0; i < 100; ++i)
 	{
 		ctmp = new cube(1,1,1, gen_random_color());
 		ctmp->transform(glm::translate(glm::mat4(1), gen_random_cord(40, 10)));
 		s->add_object(ctmp);
 	
-		rtmp = std::rand() % 3;
 
-		if(0 == rtmp)
-		{
-			gc->add_color(ctmp);
-		}
-		else if(1 == rtmp)
-		{
-			gc->add_rotate(ctmp);
-		}
-		else
-		{
-			gc->add_rotate(ctmp);
-			gc->add_color(ctmp);
-		}
+		gc->add_rotate(ctmp);
+		
 
 	}
 
@@ -74,18 +61,19 @@ engine::scene* lvl1::scene(void)
 	s->add_object(gc);
 	s->add_object(floor);
 
+
 	std::this_thread::sleep_for(std::chrono::seconds(4));
 	return s;
 
 }
 
-level_representation* lvl1::representation(void)
+level_representation* lvl3::representation(void)
 {
-	return new level_representation(true, true);
+	return new level_representation(true, false);
 }
 
 
-engine::uuid lvl1::camera(void)
+engine::uuid lvl3::camera(void)
 {
 	return c->id();
 }

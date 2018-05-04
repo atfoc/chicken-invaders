@@ -110,7 +110,7 @@ namespace engine
 
 	glm::vec3 game_object::position(void)
 	{
-		return transformation_*glm::vec4{0,0,0, 0};
+		return transformation_*glm::vec4{0,0,0, 1};
 	}
 
 	

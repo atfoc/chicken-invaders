@@ -283,11 +283,12 @@ namespace engine
 
 	scene::~scene(void)
 	{
+		/*TODO: potential problem with windows iterating over array whre you delete elements*/
 		for(auto&& it : attached_windows_)
 		{
 			it->detach_scene();
 		}
-		(*log_) << log::priority::debug << "~scene" << log::end_log;
+		(*log_) << log::priority::debug << "~scene with id: " << id_  << log::end_log;
 	}
 }
 }
