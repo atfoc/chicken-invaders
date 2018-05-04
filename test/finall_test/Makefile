@@ -1,7 +1,7 @@
 CXX = g++
 INCLUDE = ../../include
 override CXXFLAGS += -Wall -Wextra -std=c++14 -I $(INCLUDE)
-override LINK += -lSDL2 -lGL -lGLU
+override LINK += -lSDL2 -lGL -lGLU -lpthread
 ENGINE = ../../src/engine
 
  SOR = $(shell find $(ENGINE) -name '*.cpp')
