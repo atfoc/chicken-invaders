@@ -34,7 +34,8 @@ int main(int argc, char *argv[])
 	rg::engine::scene* loader_scene = new rg::engine::scene();
 	rg::engine::application::add_scene(loader_scene);	
 
-	rg::engine::orthogonal_camera* oc = new rg::engine::orthogonal_camera(-20, 20, 10, -10, 0, 5);
+	//rg::engine::orthogonal_camera* oc = new rg::engine::orthogonal_camera(-20, 20, 15, -15, 0, 5);
+	rg::engine::perspective_camera* oc = new rg::engine::perspective_camera(glm::vec3{0, 0, -20}, glm::vec3{0, 0, 0}, 60, 0, 1, 100);
 	level_loader* ll = new level_loader();	
 	loader_scene->add_camera(oc);
 	loader_scene->add_object(ll);

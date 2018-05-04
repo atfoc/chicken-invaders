@@ -1,0 +1,17 @@
+[4.4.18. 23:19:19] (Info) Selecting next level
+[4.4.18. 23:19:20] (Info) Selecting next level
+[4.4.18. 23:19:21] (Info) Selecting next level
+[4.4.18. 23:19:23] (Info) Selecting previous level
+[4.4.18. 23:19:31] (Info) Selected 1 level
+[4.4.18. 23:19:31] (Info) Registered back scene with id: 3b137804-ff3c-4ad3-a227-21f9216d9eb4
+[4.4.18. 23:19:31] (Info) Timer crated in scene with id: bf60eb99-71ea-4f30-9619-9fff56afd087
+[4.4.18. 23:19:31] (Info) Timer started in scene with id: bf60eb99-71ea-4f30-9619-9fff56afd087
+[4.4.18. 23:19:35] (Info) Recived scene to start with id: b01def99-8888-4277-a30c-01e24f29d152
+[4.4.18. 23:19:35] (Info) Timer paused in scene with id: bf60eb99-71ea-4f30-9619-9fff56afd087
+[4.4.18. 23:19:35] (Info) Timer started in game object within scene id: b01def99-8888-4277-a30c-01e24f29d152
+[4.4.18. 23:19:35] (Info) Succesfuly joined with thread
+[4.4.18. 23:19:40] (Info) Timer paused in game object within scene id: b01def99-8888-4277-a30c-01e24f29d152
+[4.4.18. 23:19:40] (Debug) ~window
+[4.4.18. 23:19:40] (Debug) ~scene with id: bf60eb99-71ea-4f30-9619-9fff56afd087
+[4.4.18. 23:19:40] (Debug) ~scene with id: b01def99-8888-4277-a30c-01e24f29d152
+[4.4.18. 23:19:40] (Debug) ~scene with id: 3b137804-ff3c-4ad3-a227-21f9216d9eb4
