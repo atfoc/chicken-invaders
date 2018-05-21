@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <map>
 #include <GL/gl.h>
+#include <IL/il.h>
 #include "engine/application.hpp"
 #include "engine/log.hpp"
 #include "engine/event.hpp"
@@ -21,6 +22,7 @@ namespace application
 	static std::map<Uint32, std::unique_ptr<window>> windows_;
 	static std::map<uuid, std::unique_ptr<class scene>> scenes_;	
 	std::map<uuid, std::thread> threads_;
+	std::vector<boost::any> delete_at_the_end_;
 
 	void init(int argc, char** argv)
 	{
@@ -31,7 +33,10 @@ namespace application
 		/*TODO: make this toggle with arguments*/
 		//SDL_SetRelativeMouseMode(SDL_TRUE);
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_NORMALIZE);
 		glClearColor(1,1,1,1);
+
+		ilInit();
 	}
 
 	void add_window(window* w)
@@ -145,6 +150,7 @@ namespace application
 					windows_.clear();
 					scenes_.clear();
 					threads_.clear();
+					delete_at_the_end_.clear();
 					quit = true;	
 					break;
 			}

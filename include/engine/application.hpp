@@ -4,6 +4,7 @@
 #include <map>
 #include <thread>
 #include <utility>
+#include <boost/any.hpp>
 #include "engine/id.hpp"
 #include "engine/thread_finished_event.hpp"
 
@@ -20,6 +21,7 @@ namespace application
 {
 
 	extern std::map<uuid, std::thread> threads_;
+	extern std::vector<boost::any> delete_at_the_end_;
 
 	void init(int argc, char** argv);
 	void add_window(window* w);
@@ -36,6 +38,7 @@ namespace application
 
 
 
+	/*TODO: not needed any more add t.detach*/
 	template<typename Fn, typename... Args>
 	void on_thread(uuid th_id, Fn&& f, Args&&... a)
 	{
@@ -49,6 +52,13 @@ namespace application
 		uuid id = uuids::random_id();
 		threads_.insert(std::make_pair(id, std::thread(on_thread<std::decay_t<Fn>, std::decay_t<Args>...>, id, std::forward<Fn>(f),std::forward<Args>(args)...)));
 	}
+
+	template <typename T>
+	void ensure_delete(T* a)
+	{
+		delete_at_the_end_.push_back(std::shared_ptr<T>(a));
+	}
+
 }
 }
 }
