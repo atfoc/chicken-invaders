@@ -5,6 +5,7 @@
 #include <map>
 #include <mutex>
 #include <condition_variable>
+#include <GL/glu.h>
 #include "engine/model.hpp"
 
 namespace rg
@@ -20,7 +21,7 @@ namespace engine
 
 			std::pair<bool, model*> load(const std::string& path);
 			std::pair<bool, model*> try_to_load(const std::string& path);
-			
+			unsigned sphere(void);		
 
 			model_loader& operator=(const model_loader& other) = delete; 
 			~model_loader(void);
@@ -29,6 +30,7 @@ namespace engine
 			std::mutex m;
 			std::condition_variable cv;
 			std::map<boost::filesystem::path, std::pair<bool, model*>> models_;
+			unsigned sphere_;
 	};
 }
 }

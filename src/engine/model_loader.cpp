@@ -7,7 +7,8 @@ namespace engine
 {
 
 	model_loader::model_loader(texture_loader* tl)
-		:	tl_{tl}
+		:	tl_{tl},
+			sphere_{-1u}
 	{
 	}
 
@@ -103,6 +104,32 @@ namespace engine
 	model_loader::~model_loader(void)
 	{
 		std::for_each(models_.begin(), models_.end(), [](auto& it){delete it.second.second;});
+		if(-1u != sphere_)
+		{
+			glDeleteLists(sphere_, 1);
+		}
+	}
+
+	unsigned model_loader::sphere(void)
+	{
+		std::lock_guard<std::mutex> lock(m);
+
+		if(-1u == sphere_)
+		{
+			GLUquadricObj* s = gluNewQuadric();
+
+			gluQuadricNormals(s, GLU_SMOOTH);
+			gluQuadricTexture(s, true);
+
+			sphere_ = glGenLists(1);
+
+			glNewList(sphere_, GL_COMPILE);
+			gluSphere(s, 1, 200, 200);
+			glEndList();
+			gluDeleteQuadric(s);
+		}
+		
+		return sphere_;
 	}
 
 }
