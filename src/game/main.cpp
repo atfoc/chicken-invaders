@@ -5,8 +5,11 @@
 #include "engine/light.hpp"
 #include "engine/texture_loader.hpp"
 #include "engine/model_loader.hpp"
-
-#include "game/level/level_representation.hpp"
+#include "game/scenes/level_selector.hpp"
+#include "game/scenes/level_loader.hpp"
+#include "game/levels/lvl1.hpp"
+#include "game/levels/lvl2.hpp"
+#include "game/levels/lvl3.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -18,14 +21,6 @@ int main(int argc, char *argv[])
 	rg::engine::window* w = new rg::engine::window("Chicken Invaders");
 	rg::engine::application::add_window(w);
 
-	rg::engine::scene* s = new rg::engine::scene();
-	rg::engine::application::add_scene(s);
-
-	rg::engine::perspective_camera* pc = new rg::engine::perspective_camera(glm::vec3{-2, 2, 5}, glm::vec3{0, 0, 0}, 60, 0, 1, 100);
-	s->add_camera(pc);
-
-	rg::engine::light* l = new rg::engine::light(glm::vec4{-1,2,0,0});
-	s->add_light(l);
 
 	rg::engine::texture_loader* tl = new rg::engine::texture_loader();	
 	rg::engine::application::ensure_delete(tl);
@@ -33,28 +28,37 @@ int main(int argc, char *argv[])
 	rg::engine::model_loader* ml = new rg::engine::model_loader(tl);
 	rg::engine::application::ensure_delete(ml);
 
+	rg::engine::scene* level_loader_scene = new rg::engine::scene();
+	rg::engine::application::add_scene(level_loader_scene);
 
-	unsigned tex = tl->load("./materials/planets/planet1.jpg").second;
-	unsigned mod = ml->sphere();
-	level_representation* l1 = new level_representation(mod, tex); 
-	s->add_object(l1);
+	rg::engine::perspective_camera* pc1 = new rg::engine::perspective_camera(glm::vec3{0, 0, 15}, glm::vec3{0,0, 0}, 60, 0, 1, 100);
+	level_loader_scene->add_camera(pc1);
 
-	tex = tl->load("./materials/planets/planet2.jpg").second;
-	mod = ml->sphere();
-	level_representation* l2 = new level_representation(mod, tex); 
-	l2->transform(glm::translate(glm::mat4(1), glm::vec3{3, 0, 0}));
-	s->add_object(l2);
 
-	tex = tl->load("./materials/planets/planet3.jpg").second;
-	mod = ml->sphere();
-	level_representation* l3 = new level_representation(mod, tex); 
-	l3->transform(glm::translate(glm::mat4(1), glm::vec3{6, 0, 0}));
-	s->add_object(l3);
+	level_loader* level_loader_object  =new level_loader();
+	level_loader_scene->add_object(level_loader_object);
+
+	rg::engine::scene* level_selector_scene = new rg::engine::scene();
+	rg::engine::application::add_scene(level_selector_scene);
+	
+
+	rg::engine::perspective_camera* pc = new rg::engine::perspective_camera(glm::vec3{-2, 2, 5}, glm::vec3{0, 0, 0}, 60, 0, 1, 100);
+	level_selector_scene->add_camera(pc);
+
+	rg::engine::light* l = new rg::engine::light(glm::vec4{-2,2,5,0});
+	level_selector_scene->add_light(l);
+
+	level_selector* level_selector_object = new level_selector(pc, 0.5, level_loader_scene->id(), level_loader_object->id(), pc1->id(), tl, ml);
+	level_selector_scene->add_object(level_selector_object);
+
+	level_selector_object->add_level(new lvl1());
+	level_selector_object->add_level(new lvl2());
+	level_selector_object->add_level(new lvl3());
 
 
 
 	/*Attaching scene and camera to window and showing window*/
-	w->attach_scene(s->id());
+	w->attach_scene(level_selector_scene->id());
 	w->attach_camera(pc->id(),[](int w, int h){return std::make_tuple(0,0, w, h);});
 	w->show(true);
 

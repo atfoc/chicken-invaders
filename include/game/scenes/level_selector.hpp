@@ -2,6 +2,8 @@
 #define LEVEL_SELECTOR_HPP_VTKGNDZI
 
 #include "engine/game_object.hpp"
+#include "engine/texture_loader.hpp"
+#include "engine/model_loader.hpp"
 
 class level_representation;
 class level;
@@ -20,7 +22,8 @@ class level_selector : public rg::engine::game_object
 {
 	public:
 		level_selector(	rg::engine::perspective_camera* cam, float speed, const rg::engine::uuid& loader_scene, 
-						const rg::engine::uuid& loader_obj, const rg::engine::uuid& cam_id);
+						const rg::engine::uuid& loader_obj, const rg::engine::uuid& cam_id,
+						rg::engine::texture_loader* tl, rg::engine::model_loader* ml);
 		level_selector(const level_selector& l) = delete;
 		level_selector(level_selector&& l) = default;
 
@@ -46,6 +49,8 @@ class level_selector : public rg::engine::game_object
 		rg::engine::uuid ls_;
 		rg::engine::uuid lo_;
 		rg::engine::uuid cam_id_;
+		rg::engine::texture_loader* tl_;
+		rg::engine::model_loader* ml_;
 };
 
 #endif /* end of include guard: LEVEL_SELECTOR_HPP_VTKGNDZI */

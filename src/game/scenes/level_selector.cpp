@@ -19,10 +19,11 @@ namespace app = rg::engine::application;
 namespace support = rg::engine::support;
 using log_ = engine::log;
 
-void thread_function(level* l, engine::uuid scene, engine::uuid obj);
+void thread_function(level* l, engine::uuid scene, engine::uuid obj, rg::engine::texture_loader* tl, rg::engine::model_loader* ml);
 
 level_selector::level_selector(	rg::engine::perspective_camera* cam, float speed, const engine::uuid& loader_scene,
-								const engine::uuid& loader_obj, const engine::uuid& cam_id)
+								const engine::uuid& loader_obj, const engine::uuid& cam_id,
+								engine::texture_loader* tl, engine::model_loader* ml)
 	:	curr_level_{-1},
 		moving_{false},
 		cam_{cam},
@@ -31,7 +32,9 @@ level_selector::level_selector(	rg::engine::perspective_camera* cam, float speed
 		speed_{speed},
 		ls_(loader_scene),
 		lo_(loader_obj),
-		cam_id_(cam_id)
+		cam_id_(cam_id),
+		tl_{tl},
+		ml_{ml}
 {}
 
 
@@ -135,15 +138,11 @@ bool level_selector::handle_events(const rg::engine::event& e)
 
 		if(SDLK_RIGHT== e_.key.keysym.sym)
 		{
-			if(curr_level_ + 1 < levels_.size())
+			if(static_cast<unsigned>(curr_level_ + 1) < levels_.size())
 			{
 				(*app::logger()) << log_::priority::info << "Selecting next level" << log_::end_log;
-				if(-1 != curr_level_)
-				{
-					//levels_objects_[curr_level_]->selected(false);
-				}
+				
 				++curr_level_;
-				//levels_objects_[curr_level_]->selected(true);
 				moving_ = true;
 				target_position_ = levels_objects_[curr_level_]->position();
 			}
@@ -155,9 +154,7 @@ bool level_selector::handle_events(const rg::engine::event& e)
 			if(curr_level_ -1 >= 0)
 			{
 				(*app::logger()) << log_::priority::info << "Selecting previous level" << log_::end_log;
-				//levels_objects_[curr_level_]->selected(false);
 				--curr_level_;
-				//levels_objects_[curr_level_]->selected(true);
 				moving_ = true;
 				target_position_ = levels_objects_[curr_level_]->position();
 			}
@@ -169,7 +166,7 @@ bool level_selector::handle_events(const rg::engine::event& e)
 			if(!moving_)
 			{
 				(*app::logger()) << log_::priority::info << "Selected " << curr_level_ << " level" << log_::end_log;
-				app::create_thread(thread_function, levels_[curr_level_].get(), ls_, lo_);
+				app::create_thread(thread_function, levels_[curr_level_].get(), ls_, lo_, tl_, ml_);
 				auto win = scene()->windows()[0];
 				win->attach_scene(ls_, support::make_bundle_event(ls_, lo_, scene()->id(), cam_->id()));
 				win->attach_camera(cam_id_, [](int w, int h){return std::make_tuple(0, 0, w, h);});
@@ -195,15 +192,15 @@ rg::engine::box level_selector::box_mash(void)
 void level_selector::add_level(level* l)
 {
 	levels_.push_back(std::unique_ptr<level>(l));
-	level_representation* lr = l->representation();
+	level_representation* lr = l->representation(*tl_, *ml_);
 	lr->transform(glm::translate(glm::mat4(1), glm::vec3{levels_objects_.size()*2, 0, 0}));
 	levels_objects_.push_back(lr);
 	scene()->add_object(lr);
 }
 
-void thread_function(level* l, engine::uuid scene, engine::uuid obj)
+void thread_function(level* l, engine::uuid scene, engine::uuid obj, rg::engine::texture_loader* tl, rg::engine::model_loader* ml)
 {
-	auto s = l->scene();
+	auto s = l->scene(*tl, *ml);
 	auto cid = l->camera();
 	app::post_event(support::make_bundle_event(scene, obj, s, cid));
 }

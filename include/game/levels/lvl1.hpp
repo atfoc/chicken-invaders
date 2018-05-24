@@ -12,8 +12,8 @@ class lvl1 : public level
 		lvl1(void) = default;
 		lvl1(const lvl1& l) = default;
 	
-		rg::engine::scene* scene(void);
-		level_representation* representation(void);
+		rg::engine::scene* scene(rg::engine::texture_loader& tl, rg::engine::model_loader& ml);
+		level_representation* representation(rg::engine::texture_loader& tl, rg::engine::model_loader& ml);
 		rg::engine::uuid camera(void);
 
 		~lvl1(void) = default;
