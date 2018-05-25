@@ -113,6 +113,15 @@ namespace engine
 		return transformation_*glm::vec4{0,0,0, 1};
 	}
 
+	void game_object::rtransform(const glm::mat4& pos)
+	{
+		transformation_ *= pos;
+	}
+
+	void game_object::ltransform(const glm::mat4& pos)
+	{
+		transformation_ = pos * transformation_;
+	}
 	
 }
 }

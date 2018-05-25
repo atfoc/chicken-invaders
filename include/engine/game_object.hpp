@@ -36,7 +36,12 @@ namespace engine
 			const glm::mat4& transformation(void);
 			void transformation(const glm::mat4& pos);
 
+			/* Deprecated. It is same as   rtransform.
+			 * Left it in because it was used too offten to be
+			 * changed with rtransform*/
 			void transform(const glm::mat4& pos);
+			void rtransform(const glm::mat4& pos);
+			void ltransform(const glm::mat4& pos);
 
 			void show(bool v);
 			bool visable(void);
