@@ -13,8 +13,6 @@
 namespace engine = rg::engine;
 namespace support = rg::engine::support;
 
-static glm::vec3 gen_random_cord(void);
-rg::engine::color gen_random_color(void);
 
 engine::scene* lvl1::scene(rg::engine::texture_loader& tl, rg::engine::model_loader& ml)
 {
@@ -45,14 +43,4 @@ level_representation* lvl1::representation(rg::engine::texture_loader& tl, rg::e
 engine::uuid lvl1::camera(void)
 {
 	return c->id();
-}
-
-static glm::vec3 gen_random_cord(int xz, int yl)
-{
-	int x =  std::rand() % xz;	
-	int z =  std::rand() % xz;	
-	int y =  std::rand() % yl;	
-
-
-	return glm::vec3{x, y, z};
 }

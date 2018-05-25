@@ -4,6 +4,7 @@
 #include "engine/game_object.hpp"
 #include "engine/texture_loader.hpp"
 #include "engine/model_loader.hpp"
+#include "game/scenes/ship.hpp"
 
 class level_representation;
 class level;
@@ -51,6 +52,8 @@ class level_selector : public rg::engine::game_object
 		rg::engine::uuid cam_id_;
 		rg::engine::texture_loader* tl_;
 		rg::engine::model_loader* ml_;
+		ship* ship_;
+		bool ship_is_added_;
 };
 
 #endif /* end of include guard: LEVEL_SELECTOR_HPP_VTKGNDZI */

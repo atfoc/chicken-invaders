@@ -1,3 +1,4 @@
+#include <iostream>
 #include <assimp/postprocess.h>
 #include <assimp/matrix4x4.h>
 #include <assimp/cimport.h>
@@ -23,6 +24,7 @@ namespace engine
 
 	void model::render(void)
 	{
+
 		recursive_render(scene_, scene_->mRootNode, tl_, path_to_model_);
 	}
 

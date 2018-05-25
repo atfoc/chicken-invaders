@@ -24,7 +24,7 @@ void thread_function(level* l, engine::uuid scene, engine::uuid obj, rg::engine:
 level_selector::level_selector(	rg::engine::perspective_camera* cam, float speed, const engine::uuid& loader_scene,
 								const engine::uuid& loader_obj, const engine::uuid& cam_id,
 								engine::texture_loader* tl, engine::model_loader* ml)
-	:	curr_level_{-1},
+	:	curr_level_{0},
 		moving_{false},
 		cam_{cam},
 		scene_to_delete_(engine::uuids::null_id),
@@ -34,8 +34,11 @@ level_selector::level_selector(	rg::engine::perspective_camera* cam, float speed
 		lo_(loader_obj),
 		cam_id_(cam_id),
 		tl_{tl},
-		ml_{ml}
-{}
+		ml_{ml},
+		ship_{new ship(ml)},
+		ship_is_added_{false}
+{
+}
 
 
 bool level_selector::handle_events(const rg::engine::event& e)
@@ -71,11 +74,13 @@ bool level_selector::handle_events(const rg::engine::event& e)
 					{
 						cam_->eye(cam_->eye() + direction_vec);
 						cam_->point(cam_->point() + direction_vec);
+						ship_->ltransform(glm::translate(glm::mat4(1), direction_vec));
 					}
 					else
 					{
 						cam_->eye(cam_->eye() + move_vector);
 						cam_->point(cam_->point() + move_vector);
+						ship_->ltransform(glm::translate(glm::mat4(1), move_vector));
 					}
 				}
 
@@ -114,6 +119,15 @@ bool level_selector::handle_events(const rg::engine::event& e)
 					app::remove_scene(scene_to_delete_);
 				}
 				scene_to_delete_ = engine::uuids::null_id;
+
+				if(!ship_is_added_)
+				{
+					ship_->rtransform(glm::translate(glm::mat4(1), glm::vec3{-0.3,0,1.5}));
+					ship_->rtransform(glm::rotate(glm::mat4(1), 90.0f, glm::vec3{0, 1, 0}));
+					ship_->rtransform(glm::scale(glm::mat4(1), 0.0004f*glm::vec3{1,1,1}));
+					scene()->add_object(ship_);
+					ship_is_added_ = true;
+				}
 				return true;
 			}
 
