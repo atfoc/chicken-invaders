@@ -4,7 +4,7 @@
 #include "engine/game_object.hpp"
 #include "engine/texture_loader.hpp"
 #include "engine/model_loader.hpp"
-#include "game/scenes/ship.hpp"
+#include "game/objects/ship.hpp"
 
 class level_representation;
 class level;

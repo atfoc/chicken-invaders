@@ -1,6 +1,6 @@
 #include "engine/application.hpp"
 #include "engine/log.hpp"
-#include "game/scenes/ship.hpp"
+#include "game/objects/ship.hpp"
 #include "engine/event.hpp"
 #include "engine/box.hpp"
 
