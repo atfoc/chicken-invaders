@@ -77,11 +77,41 @@ namespace engine
 		return nullptr;
 	}
 	
+	bool range_intesect(float a0, float a1, float b0, float b1)
+	{
+		float dist_a = std::abs(a0 - a1);
+		float dist_b = std::abs(b0-b1);
+
+		if(dist_a < dist_b)
+		{
+			std::swap(a0, b0);
+			std::swap(a1, b1);
+		}
+
+		return (a0 <= b0 && b0 <= a1) || (a0 <= b1 && b1 <= a1);
+	}
+
 	std::vector<game_object*> scene::collision(game_object* obj)		
 	{
-		static_cast<void>(obj);
-		/*TODO: implement after implementing collision*/	
-		return std::vector<game_object*>();
+		std::vector<game_object*> res;
+		box b = obj->box_mash();
+		box b1;
+		for(auto&& it : game_objects_)
+		{
+			if(it.first == obj->id())
+			{
+				continue;
+			}
+			b1 = it.second->box_mash();
+
+			
+			if(	range_intesect(b.bottom_left().x, b.bottom_right().x, b1.bottom_left().x, b1.bottom_right().x) &&
+				range_intesect(b.bottom_right().z, b.top_right().z, b1.bottom_right().z, b1.top_right().z))
+			{
+				res.push_back(it.second.get());
+			}
+		}
+		return res;
 	}
 	
 	void scene::broadcast(const event& e) 
@@ -90,6 +120,7 @@ namespace engine
 		{
 			it.second->handle_events(e);
 		}
+	
 	}
 
 	void scene::broadcast_unit_handle(const event& e)

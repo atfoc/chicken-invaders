@@ -11,70 +11,71 @@ namespace engine
 	class box
 	{
 		public:
-			box(float w = 0, float h = 0, float d = 0);
+			box(float w = 0, float h = 0, const glm::vec3& pos = {0,0,0});
 			box(const box& b) = default;
 			box(box&& b) = default;
 
-			inline const glm::vec4& front_lower_left(void) const;
-			inline const glm::vec4& front_lower_right(void) const;
-			inline const glm::vec4& front_upper_left(void) const;
-			inline const glm::vec4& front_upper_right(void) const;
-			inline const glm::vec4& back_lower_left(void) const;
-			inline const glm::vec4& back_lower_right(void) const;
-			inline const glm::vec4& back_upper_left(void) const;
-			inline const glm::vec4& back_upper_right(void) const;
+			inline float width(void);
+			inline float height(void);
+			inline glm::vec3 top_left(void);
+			inline glm::vec3 top_right(void);
+			inline glm::vec3 bottom_left(void);
+			inline glm::vec3 bottom_right(void);
 
+
+			box& operator=(const box& b) = default;
+			box& operator=(box&& b) = default;
 		private:
-			glm::vec4 front_lower_left_;
-			glm::vec4 front_lower_right_;
-			glm::vec4 front_upper_left_;
-			glm::vec4 front_upper_right_;
-			glm::vec4 back_lower_left_;
-			glm::vec4 back_lower_right_;
-			glm::vec4 back_upper_left_;
-			glm::vec4 back_upper_right_;
-			
+			glm::vec3 pos_;
+			float w_, h_;
 	};
 
-	inline const glm::vec4& box::front_lower_left(void) const
+
+	inline float box::width(void)
 	{
-		return front_lower_left_;
+		return w_;
 	}
 
-	inline const glm::vec4& box::front_lower_right(void) const
+	inline float box::height(void)
 	{
-		return front_lower_right_;
+		return h_;
 	}
 
-	inline const glm::vec4& box::front_upper_left(void) const
+	inline glm::vec3 box::top_left(void)
 	{
-		return front_upper_left_;
+		glm::vec3 p(pos_);
+		p.x -= w_/2;
+		p.z += h_/2;
+		return p;
 	}
 
-	inline const glm::vec4& box::front_upper_right(void) const
+	inline glm::vec3 box::top_right(void)
 	{
-		return front_upper_right_;
+		glm::vec3 p(pos_);
+		p.x += w_/2;
+		p.z += h_/2;
+		return p;
 	}
 
-	inline const glm::vec4& box::back_lower_left(void) const
+	inline glm::vec3 box::bottom_left(void)
 	{
-		return back_lower_left_;
+		glm::vec3 p(pos_);
+		p.x -= w_/2;
+		p.z -= h_/2;
+		return p;
 	}
 
-	inline const glm::vec4& box::back_lower_right(void) const
+	inline glm::vec3 box::bottom_right(void)
 	{
-		return back_lower_right_;
+		glm::vec3 p(pos_);
+		p.x += w_/2;
+		p.z -= h_/2;
+		return p;
+
 	}
 
-	inline const glm::vec4& box::back_upper_left(void) const
-	{
-		return back_upper_left_;
-	}
+
 	
-	inline const glm::vec4& box::back_upper_right(void) const
-	{
-		return back_upper_right_;
-	}
 
 }
 
