@@ -7,6 +7,7 @@
 #include <boost/any.hpp>
 #include "engine/id.hpp"
 #include "engine/thread_finished_event.hpp"
+#include "engine/upload_texture_event.hpp"
 
 
 namespace rg {
@@ -35,7 +36,8 @@ namespace application
 	log* logger(void);
 	template<typename Fn, typename... Args>
 	void create_thread(Fn&& f, Args&&... args);
-
+	std::thread::id main_thread_id(void);
+	unsigned upload_texture(void);
 
 
 	/*TODO: not needed any more add t.detach*/

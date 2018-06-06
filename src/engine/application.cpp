@@ -21,20 +21,28 @@ namespace application
 	static log log_(true, "application.log");
 	static std::map<Uint32, std::unique_ptr<window>> windows_;
 	static std::map<uuid, std::unique_ptr<class scene>> scenes_;	
+	std::thread::id main_thread_id_;
 	std::map<uuid, std::thread> threads_;
 	std::vector<boost::any> delete_at_the_end_;
 
+
 	void init(int argc, char** argv)
 	{
+		/* This should be used as a way to set things like logging to a file
+		 * random seed and simular*/
+		static_cast<void>(argc);
+		static_cast<void>(argv);
+
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER,1);
-		/*TODO: make this toggle with arguments*/
-		//SDL_SetRelativeMouseMode(SDL_TRUE);
+
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_NORMALIZE);
 		glClearColor(1,1,1,1);
+
+		main_thread_id_ = std::this_thread::get_id();
 
 		ilInit();
 	}
@@ -96,6 +104,16 @@ namespace application
 								log_ << log::priority::info << "Succesfuly joined with thread" << log::end_log;
 								threads_.erase(it);
 							}
+						}
+						else if(e_->code() == user_event_code<upload_texture_event>::value)
+						{
+							upload_texture_event* ee_{dynamic_cast<upload_texture_event*>(e_)};
+
+							unsigned tex_name = upload_texture();
+
+							ee_->tex_name(tex_name);
+							ee_->done();
+							
 						}
 						else
 						{
@@ -203,6 +221,36 @@ namespace application
 		}
 
 		return nullptr;
+	}
+
+	std::thread::id main_thread_id(void)
+	{
+		return main_thread_id_;
+	}
+
+	unsigned upload_texture(void)
+	{
+		unsigned tex_name;
+
+		glEnable(GL_TEXTURE_2D);
+		glGenTextures(1, &tex_name);
+		glBindTexture(GL_TEXTURE_2D, tex_name);
+
+		glTexParameteri(GL_TEXTURE_2D,
+			                GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D,
+			                GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D,
+			                GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D,
+			                GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+						ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0,
+			             GL_RGB, GL_UNSIGNED_BYTE, ilGetData());
+			
+		glDisable(GL_TEXTURE_2D);
+		return tex_name;
+
 	}
 }
 }
