@@ -79,6 +79,7 @@ namespace engine
 
 		std::copy(sor, sor + 16, arr);
 
+		glMatrixMode(GL_MODELVIEW);
 		glMultMatrixf(sor);
 	}
 

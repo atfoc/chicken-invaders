@@ -1,40 +1,42 @@
 #include <IL/il.h>
 #include <GL/gl.h>
 #include "engine/texture_loader.hpp"
+#include "engine/upload_texture_event.hpp"
+#include "engine/application.hpp"
+#include "engine/id.hpp"
 
 namespace rg
 {
 namespace engine
 {
 
-	static unsigned load_texture(const std::string &path)
+	static unsigned load_texture(const std::string &path, std::mutex& load_lock)
 	{
+		std::lock_guard<std::mutex> guard(load_lock);
+		std::mutex tmp;		
+		std::unique_lock<std::mutex> dummy_lock(tmp);
+		std::condition_variable cv;
+
 		ILuint pic;
 		unsigned tex_name;
 	
 		ilGenImages(1, &pic);
 		ilBindImage(pic);
 		ilLoadImage(path.c_str());
+
+		ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
 		
-		glEnable(GL_TEXTURE_2D);
-		glGenTextures(1, &tex_name);
-	
-		glBindTexture(GL_TEXTURE_2D, tex_name);
-	
-		glTexParameteri(GL_TEXTURE_2D,
-	                    GL_TEXTURE_WRAP_S, GL_CLAMP);
-	    glTexParameteri(GL_TEXTURE_2D,
-	                    GL_TEXTURE_WRAP_T, GL_CLAMP);
-	    glTexParameteri(GL_TEXTURE_2D,
-	                    GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	    glTexParameteri(GL_TEXTURE_2D,
-	                    GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
-	                 ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0,
-	                 GL_RGB, GL_UNSIGNED_BYTE, ilGetData());
-	
+		if(application::main_thread_id() == std::this_thread::get_id())
+		{
+			tex_name = application::upload_texture();
+		}
+		else
+		{
+			application::post_event(upload_texture_event(uuids::null_id, &cv, &tex_name));
+			cv.wait(dummy_lock);
+		}
+			
 		ilDeleteImages(1, &pic);
-		glDisable(GL_TEXTURE_2D);
 	
 		return tex_name;
 	}
@@ -58,7 +60,7 @@ namespace engine
 			textures_[p] = std::make_pair(false, 0);
 			lock.unlock();
 
-			unsigned tex = load_texture(p.string());
+			unsigned tex = load_texture(p.string(), loading_lock_);
 			lock.lock();
 
 			textures_[p].first = true;
@@ -104,7 +106,7 @@ namespace engine
 			textures_[p] = std::make_pair(false, 0);
 			lock.unlock();
 
-			unsigned tex = load_texture(p.string());
+			unsigned tex = load_texture(p.string(), loading_lock_);
 			lock.lock();
 
 			textures_[p].first = true;

@@ -1,6 +1,5 @@
 #include "engine/model_loader.hpp"
 
-
 namespace rg
 {
 namespace engine

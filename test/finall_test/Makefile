@@ -1,7 +1,7 @@
 CXX = g++
 INCLUDE = ../../include
 override CXXFLAGS += -Wall -Wextra -std=c++14 -I $(INCLUDE)
-override LINK += -lSDL2 -lGL -lGLU -lpthread
+override LINK += -lSDL2 -lGL -lGLU -lpthread -lIL -lassimp -lboost_system -lboost_filesystem
 ENGINE = ../../src/engine
 
  SOR = $(shell find $(ENGINE) -name '*.cpp')
@@ -16,3 +16,8 @@ $(1) : $(2)
 endef
 
 $(foreach file, $(SOR), $(eval $(call template, $(patsubst %.cpp, %.o, $(shell basename $(file))), $(file))))
+
+.PHONY: clean
+
+clean:
+	rm *.o

@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <GL/gl.h>
 #include "engine/model.hpp"
+#include "engine/application.hpp"
+#include "engine/log.hpp"
 
 namespace rg
 {
@@ -24,8 +26,12 @@ namespace engine
 
 	void model::render(void)
 	{
-
+	//	clock_t c;
+	//	c = std::clock();
 		recursive_render(scene_, scene_->mRootNode, tl_, path_to_model_);
+	//	c = std::clock() - c;
+
+//		(*application::logger()) << log::priority::debug << path_to_model_<< " " << c << " " << static_cast<float>(c)/CLOCKS_PER_SEC<< log::end_log;
 	}
 
 	bool model::has_textures(void)

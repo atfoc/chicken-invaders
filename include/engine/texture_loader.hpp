@@ -25,6 +25,7 @@ namespace engine
 			~texture_loader(void);
 		private:
 			std::mutex m;
+			std::mutex loading_lock_;
 			std::condition_variable cv;
 			std::map<boost::filesystem::path, std::pair<bool, unsigned>> textures_;
 	};
