@@ -9,6 +9,7 @@
 #include "engine/texture_loader.hpp"
 #include "game/objects/ship.hpp"
 #include "game/objects/chicken.hpp"
+#include "game/objects/bullet.hpp"
 
 class game_controler  : public rg::engine::game_object
 {
@@ -21,7 +22,7 @@ class game_controler  : public rg::engine::game_object
 		bool handle_events(const rg::engine::event& e);
 		rg::engine::box box_mash(void);
 		
-		void load_models(rg::engine::model_loader& ml);
+		void load_models(rg::engine::model_loader& ml, rg::engine::texture_loader& tl);
 
 		void on_frame(void);
 		~game_controler(void) = default;
@@ -36,6 +37,10 @@ class game_controler  : public rg::engine::game_object
 		bool game_started_;
 		ship* ship_;
 		chicken* chicken_;
+		std::vector<chicken*> chickens_;
+		int time_for_chicken_to_shoot_;
+		int time_left_;
+		bullet* b_;
 };
 
 #endif /* end of include guard: GAME_CONTROLER_HPP_NJBXIHKJ */

@@ -35,7 +35,7 @@ level_selector::level_selector(	rg::engine::perspective_camera* cam, float speed
 		cam_id_(cam_id),
 		tl_{tl},
 		ml_{ml},
-		ship_{new ship(ml)},
+		ship_{new ship(*ml, true)},
 		ship_is_added_{false}
 {
 }
@@ -175,7 +175,7 @@ bool level_selector::handle_events(const rg::engine::event& e)
 			return true;
 
 		}
-		else if(SDLK_SPACE == e_.key.keysym.sym)
+		else if(SDLK_RETURN== e_.key.keysym.sym)
 		{
 			if(!moving_)
 			{
