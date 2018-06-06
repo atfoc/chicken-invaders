@@ -24,5 +24,10 @@ namespace engine
 	{
 		return user_event_code<removed_event>::value;
 	}
+
+	uuid removed_event::removed_object(void) const
+	{
+		return removed_object_;
+	}
 }
 }

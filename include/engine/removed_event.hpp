@@ -19,6 +19,7 @@ namespace engine
 
 			SDL_Event sdl_event(void) const;
 			Uint32 code(void) const;
+			uuid removed_object(void) const;
 
 			~removed_event(void) = default;
 
