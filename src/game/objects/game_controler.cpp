@@ -190,7 +190,6 @@ bool game_controler::handle_events(const rg::engine::event& e)
 	return false;
 }
 
-explosion* tmp_expl = nullptr;
 void game_controler::load_models(rg::engine::model_loader& ml, rg::engine::texture_loader& tl)
 {
 	unsigned tex = tl.load("./materials/expl.jpeg").second;
@@ -204,8 +203,6 @@ void game_controler::load_models(rg::engine::model_loader& ml, rg::engine::textu
 	chicken_->ltransform(glm::scale(glm::mat4(1), 0.4f*glm::vec3{1,1,1}));
 	//How terrable thisg can go here
 	b_ = new bullet(ml.load("./materials/rocket/model.obj").second, 20, bullet::direction::down, tex);
-	tmp_expl  = new explosion(tex);
-	tmp_expl->ltransform(glm::scale(glm::mat4(1), glm::vec3{3,3,3}));
 
 
 }
@@ -233,6 +230,5 @@ void init_level_scene(game_controler& gc)
 		tmp->pos(glm::vec3{-4 + 2*i, 0, -2.5});
 		gc.scene()->add_object(tmp);
 	}
-	gc.scene()->add_object(tmp_expl);
 }
 
