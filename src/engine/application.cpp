@@ -1,5 +1,5 @@
-#include <SDL2/SDL.h>
 #include <map>
+#include <SDL2/SDL.h>
 #include <GL/gl.h>
 #include <IL/il.h>
 #include "engine/application.hpp"
@@ -10,6 +10,7 @@
 #include "engine/built_in_event.hpp"
 #include "engine/window.hpp"
 #include "engine/scene.hpp"
+#include "engine/upload_texture_event.hpp"
 
 namespace rg
 {
@@ -72,7 +73,9 @@ namespace application
 		while(!quit)
 		{
 			SDL_WaitEvent(&e);
-
+			
+			/*WARNING!!! UGLY BLOCK OF CODE INCOMING*/
+			/*TODO: cleanup*/
 			switch(e.type)
 			{
 				case SDL_WINDOWEVENT:
