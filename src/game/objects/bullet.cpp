@@ -29,6 +29,7 @@ void bullet::render(void)
 
 bool bullet::handle_events(const rg::engine::event& e)
 {
+	/*Warning ugly block of code incoming*/
 	if(SDL_USEREVENT == e.type())
 	{
 		const rg::engine::user_event& ue = dynamic_cast<const rg::engine::user_event&>(e);

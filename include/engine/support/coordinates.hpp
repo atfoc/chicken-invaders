@@ -2,6 +2,7 @@
 #define COORDINATES_HPP_GIBYLZQR
 #include <glm/matrix.hpp>
 
+/*XXX failed test of tranformation ndc to world coordinates*/
 namespace rg
 {
 namespace engine

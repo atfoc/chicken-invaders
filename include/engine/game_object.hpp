@@ -15,20 +15,56 @@ namespace engine
 	class event;
 	class scene;
 
+
 	class game_object
 	{
 		public:
 			game_object(void);
 			game_object(const game_object& obj);
+
 			game_object(game_object&& obj);
 
 			
 			virtual void on_frame(void);
+
+			/**
+			 * @Brief function that is called by the system for handling events
+			 *
+			 * @param e event to be handled
+			 *
+			 * @return true if the events was handled else false
+			 */
 			virtual bool handle_events(const event& e);
+
+			/**
+			 * @briefthis is the function that allows you to
+			 *copy an object polymorphicly
+			 *
+			 * @returncopied object as gameobject
+			 */
 			virtual void on_collision(game_object& obj);
+
+			/**
+			 * @brief function that is called by the system for object to render
+			 */
 			virtual void render(void);
-			/*TODO: Remove this from api this is a bad choice*/
+			/*TODO: Remove this from api this is a bad choice
+			 * maybe not at the end turns out it is kind of usfull*/
+
+			/**
+			 * @briefthis is the function that allows you to
+			 *copy an object polymorphicly
+			 *
+			 * @returncopied object as gameobject
+			 */
 			virtual game_object* copy(void) = 0;
+
+			/**
+			 * @briefthis function returns box representation that is used for collision
+			 *detection
+			 *
+			 * @returnbox that actually is rectangle
+			 */
 			virtual box box_mash(void) = 0;
 
 			void apply_transformations(void);

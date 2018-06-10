@@ -41,6 +41,10 @@ namespace engine
 			void remove_object(const uuid& id);
 			
 
+/**
+ * @brief function that is called by the system for object to render
+ */
+
 			void render(void);
 
 			void handle_events(const event& e);

@@ -13,9 +13,34 @@ class explosion : public rg::engine::game_object
 		explosion(const explosion& obj) = default;
 
 		
+		/**
+		 * @brief function that is called by the system for object to render
+		 */
 		void render(void);
+
+		/**
+		 * @Brief function that is called by the system for handling events
+		 *
+		 * @param e event to be handled
+		 *
+		 * @return true if the events was handled else false
+		 */
 		bool handle_events(const rg::engine::event& e);
+
+		/**
+		 * @briefthis is the function that allows you to
+		 *copy an object polymorphicly
+		 *
+		 * @returncopied object as gameobject
+		 */
 		rg::engine::game_object* copy(void);
+
+		/**
+		 * @briefthis function returns box representation that is used for collision
+		 *detection
+		 *
+		 * @returnbox that actually is rectangle
+		 */
 		rg::engine::box box_mash(void);
 
 

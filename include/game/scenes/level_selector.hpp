@@ -1,6 +1,12 @@
 #ifndef LEVEL_SELECTOR_HPP_VTKGNDZI
 #define LEVEL_SELECTOR_HPP_VTKGNDZI
 
+/**
+ * @briefthis is the function that allows you to
+ *copy an object polymorphicly
+ *
+ * @returncopied object as gameobject
+ */
 #include "engine/game_object.hpp"
 #include "engine/texture_loader.hpp"
 #include "engine/model_loader.hpp"
@@ -19,6 +25,12 @@ namespace engine
 }
 }
 
+/**
+ * @briefthis is the function that allows you to
+ *copy an object polymorphicly
+ *
+ * @returncopied object as gameobject
+ */
 class level_selector : public rg::engine::game_object 
 {
 	public:
@@ -29,8 +41,27 @@ class level_selector : public rg::engine::game_object
 		level_selector(level_selector&& l) = default;
 
 		
+/**
+ * @Brief function that is called by the system for handling events
+ *
+ * @param e event to be handled
+ *
+ * @return true if the events was handled else false
+ */
 		bool handle_events(const rg::engine::event& e);
+/**
+ * @briefthis is the function that allows you to
+ *copy an object polymorphicly
+ *
+ * @returncopied object as gameobject
+ */
 		rg::engine::game_object* copy(void);
+n/**
+ * @briefthis function returns box representation that is used for collision
+ *detection
+ *
+ * @returnbox that actually is rectangle
+ */
 		rg::engine::box box_mash(void);
 
 		void add_level(level* l);

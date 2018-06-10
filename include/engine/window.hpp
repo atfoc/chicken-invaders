@@ -40,6 +40,13 @@ namespace engine
 			void detach_camera(const uuid& id);
 				
 
+/**
+ * @Brief function that is called by the system for handling events
+ *
+ * @param e event to be handled
+ *
+ * @return true if the events was handled else false
+ */
 			bool handle_events(const event& e);
 
 			std::string title(void);
@@ -51,6 +58,10 @@ namespace engine
 			int id(void);
 
 			bool has_scene(void);
+
+/**
+ * @brief function that is called by the system for object to render
+ */
 
 			void render(void);
 

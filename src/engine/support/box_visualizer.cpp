@@ -46,6 +46,8 @@ namespace support
 		{
 			//TODO: exception
 			const auto& user_event = dynamic_cast<const rg::engine::user_event&>(e);
+			/* Listen if the object is destroyed if it is remove it from your list
+			 * avoid seg fault this way, I hope*/
 			if(rg::engine::user_event_code<rg::engine::removed_event>::value == user_event.code())				
 			{
 				const auto& rm_ev =dynamic_cast<const rg::engine::removed_event&>(user_event);
