@@ -41,7 +41,7 @@ You select levels on right and left arrow and enter level using enter(the key :P
 You will see loading screen(or not if your computer is too fast) wile the models are loading like this:
 ![Image level loading](https://github.com/MATF-RG17/RG126-chicken-invaders/blob/master/screenshots/level_loader.png)
 And when the level starts you can move using arrows shoot using space bar:
-~[Image level](https://github.com/MATF-RG17/RG126-chicken-invaders/blob/master/screenshots/level.png)
+![Image level](https://github.com/MATF-RG17/RG126-chicken-invaders/blob/master/screenshots/level.png)
 First level has 1 wave
 Second level has 2 waves
 Third... well lets see how far you can get
@@ -53,12 +53,12 @@ You can use esc button to return to level selector at any point in game
 + [ ] clean up the code and fix ugly parts
 + [ ] add nicer comments
 + [ ] add tutorial wiki page for the engine
++ [ ] add const to functions that dont change objects
 
 ## Known issues
 + To move player and shoot you have to repetitively press buttons you cant hold them
 + Rendering function was taken from assimp texture opengl example code and it is recursive and it is slow
-+ Currently all models have an instance of Assimp loader but they should be copied to custom representation after being
-	loaded
++ Currently all models have an instance of Assimp loader but they should be copied to custom representation after being	loaded
 
 
 
