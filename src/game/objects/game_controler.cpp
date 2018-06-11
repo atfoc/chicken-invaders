@@ -46,7 +46,6 @@ void game_controler::on_frame(void)
 
 void game_controler::render(void)
 {
-	
 }
 
 bool game_controler::handle_events(const rg::engine::event& e)
