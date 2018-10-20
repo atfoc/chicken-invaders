@@ -36,12 +36,12 @@ make
 ## How to play
 First when you load a game you will see level selector like this:
 
-![Image level selector](https://github.com/MATF-RG17/RG126-chicken-invaders/blob/master/screenshots/level_selector.png)
+![Image level selector](https://github.com/atfoc/chicken-invaders/blob/master/screenshots/level_selector.png)
 You select levels on right and left arrow and enter level using enter(the key :P)
 You will see loading screen(or not if your computer is too fast) wile the models are loading like this:
-![Image level loading](https://github.com/MATF-RG17/RG126-chicken-invaders/blob/master/screenshots/level_loader.png)
+![Image level loading](https://github.com/atfoc/chicken-invaders/blob/master/screenshots/level_loader.png)
 And when the level starts you can move using arrows shoot using space bar:
-![Image level](https://github.com/MATF-RG17/RG126-chicken-invaders/blob/master/screenshots/level.png)
+![Image level](https://github.com/atfoc/chicken-invaders/blob/master/screenshots/level.png)
 First level has 1 wave
 Second level has 2 waves
 Third... well lets see how far you can get
